@@ -8,8 +8,8 @@ async function index(req, res) {
 
 // Display the specified resource.
 async function show(req, res) {
-  const productId = req.params.id;
-  const product = await Product.findById(productId);
+  const productSlug = req.params.slug;
+  const product = await Product.findOne({ slug: productSlug });
   res.json(product);
 }
 
@@ -33,14 +33,50 @@ async function create(req, res) {
   res.json(newProduct);
 }
 
-// Store a newly created resource in storage.
-async function store(req, res) {}
-
 // Show the form for editing the specified resource.
-async function edit(req, res) {}
+async function edit(req, res) {
+  const productSlug = req.params.slug;
+  let newBrand = req.body.brand;
+  let newModel = req.body.model;
+  let newSlug = req.body.slug;
+  let newImage = req.body.image;
+  let newHighlight = req.body.highlight;
+  let newPrice = req.body.price;
+  let newStock = req.body.stock;
+  let newSubtitle = req.body.subtitle;
+  let newDescription = req.body.description;
+  const product = await Product.findOneAndUpdate(
+    { where: { slug: productSlug } },
+    {
+      brand: newBrand,
+      model: newModel,
+      slug: newSlug,
+      image: newImage,
+      highlight: newHighlight,
+      price: newPrice,
+      stock: newStock,
+      subtitle: newSubtitle,
+      description: newDescription,
+    },
 
-// Update the specified resource in storage.
-async function update(req, res) {}
+    { returnOriginal: false }
+  );
+  res.json(product);
+}
+
+async function updateStock(req, res) {
+  const productSlug = req.params.slug;
+  const product = await Product.findOne({ slug: productSlug });
+  const newStock = product.stock - req.body.stock;
+  const newProduct = await Product.findOneAndUpdate(
+    { where: { slug: productSlug } },
+    {
+      stock: newStock,
+    },
+    { returnOriginal: false }
+  );
+  res.json(newProduct);
+}
 
 // Remove the specified resource from storage.
 async function destroy(req, res) {
@@ -53,8 +89,7 @@ module.exports = {
   index,
   show,
   create,
-  store,
+  updateStock,
   edit,
-  update,
   destroy,
 };

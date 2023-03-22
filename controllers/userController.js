@@ -1,5 +1,6 @@
 const { User } = require("../models");
-
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 // Display a listing of the resource.
 async function index(req, res) {
   const users = await User.find();
@@ -35,7 +36,7 @@ async function edit(req, res) {
     {
       firstname: bodyData.firstname,
       lastname: bodyData.lastname,
-      password: bodyData.password,
+      password: await bcrypt.hash(`${bodyData.password}`, 8),
       email: bodyData.email,
       address: bodyData.address,
     },
@@ -50,6 +51,29 @@ async function destroy(req, res) {
   const user = await User.findByIdAndDelete(userId);
   res.json({ message: "The User was deleted", userDeleted: user });
 }
+async function createToken(req, res) {
+  try {
+    const user = await User.findOne({ username: req.body.email });
+    const matchPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+
+    if (user && matchPassword) {
+      const token = jwt.sign({ userId: user.id }, process.env.SESSION_SECRET);
+      res.json({
+        token: token,
+        user: { id: user._id },
+      });
+    } else res.json("No existe este usuario");
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "User login failed",
+      error: err.message,
+    });
+  }
+}
 
 module.exports = {
   index,
@@ -57,4 +81,5 @@ module.exports = {
   create,
   edit,
   destroy,
+  createToken,
 };

@@ -1,12 +1,11 @@
-
 const { faker } = require("@faker-js/faker");
 const { User } = require("../models");
-const slugify = require('slugify')
+const slugify = require("slugify");
+const bcrypt = require("bcryptjs");
 
 faker.locale = "es";
 
 module.exports = async () => {
-
   const users = [];
 
   for (let i = 0; i <= Number(process.env.TOTAL_USERS); i++) {
@@ -15,15 +14,14 @@ module.exports = async () => {
     const user = new User({
       firstname,
       lastname,
-      password: "asd",
+      password: await bcrypt.hash("1234", 8),
       email: slugify(`${firstname}_${lastname}@gmail.com`, {
-        replacement: '-',
+        replacement: "-",
         lower: true,
-        locale: 'en',
+        locale: "en",
       }),
     });
     users.push(user);
-
   }
 
   await User.insertMany(users);

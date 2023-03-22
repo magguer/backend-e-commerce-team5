@@ -1,7 +1,17 @@
+const { Router } = require("express");
 const express = require("express");
 const router = express.Router();
 const { expressjwt: checkJwt } = require("express-jwt");
 const userController = require("../controllers/userController");
+
+router.post("/token", userController.createToken);
+
+router.use(
+  checkJwt({
+    secret: process.env.SESSION_SECRET,
+    algorithms: ["HS256"],
+  })
+);
 
 router.get("/", userController.index);
 router.post("/create", userController.create);

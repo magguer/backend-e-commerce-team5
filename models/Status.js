@@ -15,5 +15,5 @@ const statusSchema = new Schema(
     { timestamps: true }
 );
 
-const Order = mongoose.model("Order", orderSchema);
-module.exports = Order;
+const Status = mongoose.model("Status", statusSchema);
+module.exports = Status;

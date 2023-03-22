@@ -6,18 +6,16 @@ const slugify = require('slugify')
 faker.locale = "es";
 
 module.exports = async () => {
+
   const users = [];
 
   for (let i = 0; i <= Number(process.env.TOTAL_USERS); i++) {
-
     const firstname = faker.name.firstName();
     const lastname = faker.name.lastName();
-
     const user = new User({
       firstname,
       lastname,
       password: "asd",
-      image: faker.internet.avatar(),
       email: slugify(`${firstname}_${lastname}@gmail.com`, {
         replacement: '-',
         lower: true,
@@ -25,7 +23,10 @@ module.exports = async () => {
       }),
     });
     users.push(user);
+
   }
+
+  await User.insertMany(users);
 
   console.log("[Database] Se corrió el seeder de Users.");
 };

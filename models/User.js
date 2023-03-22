@@ -6,7 +6,6 @@ const userSchema = new Schema(
         tokens: [{
             token: {
                 type: String,
-                required: true
             }
         }],
         firstname: {
@@ -19,7 +18,7 @@ const userSchema = new Schema(
         },
         password: {
             type: String,
-            required: [true, "Inserte un nickname."],
+            required: [true, "Inserte un password."],
         },
         email: {
             type: String,
@@ -53,8 +52,6 @@ userSchema.pre('save', async function (next) {
         next();
     }
 })
-
-
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;

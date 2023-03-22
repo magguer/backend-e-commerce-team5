@@ -8,6 +8,6 @@ router.post("/create", productController.create);
 router.get("/:slug", productController.show);
 router.patch("/:slug/edit", productController.edit);
 router.patch("/:slug/update-stock", productController.updateStock);
-router.delete("/:slug", productController.destroy);
+router.delete("/:id", productController.destroy);
 
 module.exports = router;

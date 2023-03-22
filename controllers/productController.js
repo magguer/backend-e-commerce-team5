@@ -29,6 +29,8 @@ async function create(req, res) {
     highlight: req.body.highlight,
     price: req.body.price,
     stock: req.body.stock,
+    subtitle: req.body.subtitle,
+    description: req.body.description,
   });
   res.json(newProduct);
 }
@@ -81,7 +83,7 @@ async function updateStock(req, res) {
 // Remove the specified resource from storage.
 async function destroy(req, res) {
   const productId = req.params.id;
-  const product = await Product.findByIdAndDelete(productId);
+  const product = await Product.findOneAndDelete({ id: productId });
   res.json({ message: "The Product was deleted", productDeleted: product });
 }
 

@@ -19,7 +19,11 @@ async function edit(req, res) { }
 async function update(req, res) { }
 
 // Remove the specified resource from storage.
-async function destroy(req, res) { }
+async function destroy(req, res) {
+    const userId = req.params.id;
+    const user = await User.findByIdAndDelete(userId)
+    res.json({ message: 'The User was deleted', userDeleted: user})
+ }
 
 
 

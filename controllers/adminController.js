@@ -25,9 +25,6 @@ async function create(req, res) {
   res.json(newAdmin);
 }
 
-// Store a newly created resource in storage.
-async function store(req, res) {}
-
 // Show the form for editing the specified resource.
 async function edit(req, res) {
   const bodyData = req.body;
@@ -62,7 +59,6 @@ module.exports = {
   index,
   show,
   create,
-  store,
   edit,
   update,
   destroy,

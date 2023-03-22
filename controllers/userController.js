@@ -20,7 +20,7 @@ async function create(req, res) {
   const newUser = await User.create({
     firstname: bodyData.firstname,
     lastname: bodyData.lastname,
-    password: bodyData.password,
+    password: await bcrypt.hash(`${bodyData.password}`, 8),
     email: bodyData.email,
     address: bodyData.address,
   });

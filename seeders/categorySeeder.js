@@ -1,15 +1,15 @@
 
 const { faker } = require("@faker-js/faker");
-const { Admin } = require("../models");
+const { Category } = require("../models");
 const slugify = require('slugify')
 
 faker.locale = "es";
 
 module.exports = async () => {
 
-  const admin = [];
+  const category = [];
 
-  await Admin.insertMany(products);
+  await Category.insertMany(category);
 
   console.log("[Database] Se corrió el seeder de Users.");
 };

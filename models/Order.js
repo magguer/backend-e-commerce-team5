@@ -3,7 +3,12 @@ const { Schema, mongoose } = require("../db");
 const orderSchema = new Schema(
     {
         number: {
-            type: number,
+            type: Number,
+        },
+        status:
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Status",
         },
         paymentDate: {
             type: Date,
@@ -17,12 +22,7 @@ const orderSchema = new Schema(
             type: Date,
             required: true
         },
-        products: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: "Product",
-            },
-        ],
+        products: [],
     },
     { timestamps: true }
 );

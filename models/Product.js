@@ -10,6 +10,18 @@ const productSchema = new Schema(
             type: String,
             require: true
         },
+        slug: {
+            type: String,
+            require: true
+        },
+        image: [{
+            type: String,
+            require: true
+        }],
+        highlight: {
+            type: Boolean,
+            require: true
+        },
         price: {
             type: Number,
             require: true

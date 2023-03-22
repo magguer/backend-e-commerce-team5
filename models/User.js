@@ -54,13 +54,6 @@ userSchema.pre('save', async function (next) {
     }
 })
 
-const user = new User({
-    firstname: "Martín",
-    lastname: "Suarez",
-    password: "123",
-    email: "martin@gmail.com"
-})
-user.save()
 
 
 const User = mongoose.model("User", userSchema);

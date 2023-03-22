@@ -16,6 +16,8 @@ module.exports = async () => {
       highlight: productDb.highlight,
       price: productDb.price,
       stock: productDb.stock,
+      subtitle: productDb.subtitle,
+      description: productDb.description,
     });
     products.push(product);
   }

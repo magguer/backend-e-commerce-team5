@@ -38,7 +38,8 @@ async function edit(req, res) {
       password: bodyData.password,
       email: bodyData.email,
       address: bodyData.address,
-    }
+    },
+    { returnOriginal: false }
   );
   res.json(user);
 }

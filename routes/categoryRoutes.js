@@ -4,11 +4,11 @@ const { expressjwt: checkJwt } = require("express-jwt");
 const categoryController = require("../controllers/categoryController");
 
 router.get("/", categoryController.index);
-router.get("/crear", categoryController.create);
-router.get("/", categoryController.store);
-router.get("/:id", categoryController.show);
-router.get("/:id/editar", categoryController.edit);
-router.get("/:id", categoryController.update);
-router.get("/:id", categoryController.destroy);
+router.post("/", categoryController.create);
+router.post("/", categoryController.store);
+router.get("/:name", categoryController.show);
+router.patch("/:id/editar", categoryController.edit);
+router.patch("/:id", categoryController.update);
+router.delete("/:id", categoryController.destroy);
 
 module.exports = router;

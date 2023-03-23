@@ -1,10 +1,5 @@
 const { Schema, mongoose } = require("../db");
 
-const arrayImages = new Schema({
-  original: String,
-  thumbnail: String,
-});
-
 const productSchema = new Schema(
   {
     brand: {
@@ -19,11 +14,12 @@ const productSchema = new Schema(
       type: String,
       require: true,
     },
-    image: {
-      type: String,
-      require: true,
-    },
-    images: [arrayImages],
+    image: [
+      {
+        type: String,
+        require: true,
+      },
+    ],
     highlight: {
       type: Boolean,
       require: true,
@@ -44,6 +40,11 @@ const productSchema = new Schema(
       type: String,
       require: true,
     },
+    detail: {
+      type: Object,
+      require: true,
+    },
+
     // category: {
     //   type: Schema.Types.ObjectId,
     //   ref: "Category",

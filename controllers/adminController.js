@@ -22,9 +22,10 @@ async function create(req, res) {
     firstname: bodyData.firstname,
     lastname: bodyData.lastname,
     email: bodyData.email,
-    password: await bcrypt.hash(`${bodyData.password}`, 8),
+    password: await bcrypt.hash(bodyData.password, 8),
     rol: bodyData.rol,
   });
+
   res.json(newAdmin);
 }
 
@@ -37,7 +38,7 @@ async function edit(req, res) {
     {
       firstname: bodyData.firstname,
       email: bodyData.email,
-      password: await bcrypt.hash(`${bodyData.password}`, 8),
+      password: bodyData.password,
       rol: bodyData.rol,
     },
     { returnOriginal: false }
@@ -60,52 +61,38 @@ async function destroy(req, res) {
 
 //// create token
 
-// async function createToken(req, res) {
-//   try {
-//     const admin = await Admin.findOne({ email: req.body.email });
-
-//     const matchPassword = await bcrypt.compare(
-//       req.body.password,
-//       admin.password
-//     );
-
-//     console.log({ admin });
-//     console.log(matchPassword);
-
-//     if (admin && matchPassword) {
-//       const token = jwt.sign({ adminId: admin.id }, process.env.SESSION_SECRET);
-//       res.json({
-//         admin: {
-//           id: admin._id,
-//           firstname: admin.firstname,
-//           lastname: admin.lastname,
-//           email: admin.email,
-//           rol: admin.rol,
-//           token: token,
-//         },
-//       });
-//     } else res.json("No existe este administrador");
-//   } catch (err) {
-//     res.status(500).json({
-//       success: false,
-//       message: "User login failed",
-//       error: err.message,
-//     });
-//   }
-// }
 async function createToken(req, res) {
-  const admin = await Admin.findOne({ email: req.body.email });
-  if (!admin) {
-    return res.send("Error en las credenciaes ingresadas", 401);
+  try {
+    const admin = await Admin.findOne({ email: req.body.email });
+
+    const matchPassword = await bcrypt.compare(
+      req.body.password,
+      admin.password
+    );
+
+    console.log(admin);
+    console.log(matchPassword);
+
+    if (admin && matchPassword) {
+      const token = jwt.sign({ adminId: admin.id }, process.env.SESSION_SECRET);
+      res.json({
+        admin: {
+          id: admin._id,
+          firstname: admin.firstname,
+          lastname: admin.lastname,
+          email: admin.email,
+          rol: admin.rol,
+          token: token,
+        },
+      });
+    } else res.json("No existe este administrador");
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "User login failed",
+      error: err.message,
+    });
   }
-  const checkHash = await bcrypt.compare(req.body.password, admin.password);
-  if (!checkHash) {
-    return res.send("Error en las credenciaes ingresadas", 401);
-  }
-  return res.json({
-    token: jwt.sign({ id: admin.id }, process.env.SESSION_SECRET),
-    id: admin.id,
-  });
 }
 
 module.exports = {

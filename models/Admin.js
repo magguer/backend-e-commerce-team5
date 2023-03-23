@@ -40,13 +40,15 @@ adminSchema.methods.toJSON = function () {
   return admin;
 };
 
-// Bcrypt - Password
-adminSchema.pre("save", async function (next) {
-  if (this.isModified("password") || this.isNew) {
-    this.password = await bcrypt.hash(this.password, 8);
-    next();
-  }
-});
+///////Dejar comentado el Bcrypt, porque estaba generando problemas con el Login de los Admin
+
+// Bcrypt - Password;
+// adminSchema.pre("save", async function (next) {
+//   if (this.isModified("password") || this.isNew) {
+//     this.password = await bcrypt.hash(this.password, 8);
+//     next();
+//   }
+// });
 
 const Admin = mongoose.model("Admin", adminSchema);
 module.exports = Admin;

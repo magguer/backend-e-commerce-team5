@@ -45,6 +45,7 @@ module.exports = async () => {
       product.category = acoustic._id;
       acoustic.products.push(product._id);
     }
+
     if (productDb.category === "Bass") {
       product.category = bass._id;
       bass.products.push(product._id);

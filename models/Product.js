@@ -48,10 +48,14 @@ const productSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Category",
     },
-    brands: {
+    orders: [{
       type: Schema.Types.ObjectId,
-      ref: "Brands",
-    },
+      ref: "Order",
+    }],
+    /*     brands: {
+          type: Schema.Types.ObjectId,
+          ref: "Brands",
+        }, */
   },
   { timestamps: true }
 );

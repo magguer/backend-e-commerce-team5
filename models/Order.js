@@ -8,21 +8,23 @@ const orderSchema = new Schema(
     },
     paymentDate: {
       type: Date,
-      required: true,
     },
     shippingDate: {
       type: Date,
-      required: true,
     },
     arrivalDate: {
       type: Date,
-      required: true,
     },
     user: {
       type: Schema.Types.ObjectId,
       ref: "User",
     },
     products: [],
+    details: [{}],
+    totalPrice: {
+      type: Number,
+      require: true
+    }
   },
   { timestamps: true }
 );

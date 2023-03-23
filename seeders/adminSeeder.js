@@ -8,11 +8,11 @@ faker.locale = "es";
 module.exports = async () => {
   const admin = {
     firstname: "Luis",
-    lastname: "Sanchez",
-    email: "admin@hack",
+    lastname: "Romero",
+    email: "admin@hack.com",
     password: await bcrypt.hash("1234", 8),
     rol: 200,
   };
   await Admin.create(admin);
-  console.log("[Database] Se corrió el seeder de admins.");
+  console.log("[Database] Se corrió el seeder de Admins.");
 };

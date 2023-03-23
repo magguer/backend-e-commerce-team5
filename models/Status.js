@@ -10,7 +10,10 @@ const statusSchema = new Schema(
                 type: Schema.Types.ObjectId,
                 ref: "Order",
             },
-        ]
+        ],
+        number: {
+            type: Number,
+        }
     },
     { timestamps: true }
 );

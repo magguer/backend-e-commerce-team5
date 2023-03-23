@@ -1,7 +1,7 @@
 const { Category } = require("../models");
 
 // Display a listing of the resource.
-async function index(req, res) { 
+async function index(req, res) {
     const category = await Category.find();
     res.json(category);
 }
@@ -9,9 +9,9 @@ async function index(req, res) {
 // Display the specified resource.
 async function show(req, res) {
     const categoryName = req.params.name;
-    const category = await Category.findOne({name:categoryName});
+    const category = await Category.findOne({ name: categoryName });
     res.json(category);
- }
+}
 
 // Show the form for creating a new resource
 async function create(req, res) { }

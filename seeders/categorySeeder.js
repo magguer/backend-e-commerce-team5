@@ -22,5 +22,5 @@ module.exports = async () => {
 
   await Category.insertMany(categories);
 
-  console.log("[Database] Se corrió el seeder de categories.");
+  console.log("[Database] Se corrió el seeder de Categories.");
 };

@@ -3,8 +3,12 @@ const products = [
     brand: "Gibson",
     model: "Billie Joe Armstrong Les Paul Junior",
     slug: "billie-joe-armstrong-les-paul-junior",
-    image:
+    image: [
       "https://images.ctfassets.net/m8onsx4mm13s/67WERaCwmv87IOWYsXVBLB/70b5d45e9a6512f39f40c432b7e6aff8/LPJRBA22S1NH1_front.png?fit=fill&w=250&h=500",
+      "https://images.ctfassets.net/m8onsx4mm13s/52LN0tVh4sQivTzzW4aDC0/f2e2d58462b0d6e5122ffb0c35d630c8/LPJRBA22S1NH1_side.png",
+      "https://images.ctfassets.net/m8onsx4mm13s/3l4dOSNF6acZotFszSJV2F/ea443c0426e122864c924ac519cd23e2/LPJRBA22S1NH1_beauty.png",
+      "https://www.gibson.com/en-US/Electric-Guitar/USA8SV133/Silver-Mist",
+    ],
     highlight: false,
     price: 2199,
     stock: 10,
@@ -17,8 +21,12 @@ const products = [
     brand: "Gibson",
     model: "B.B. King Live at the Regal ES-335",
     slug: "bb-king-live-at-the-regal-es-335",
-    image:
+    image: [
       "https://images.ctfassets.net/m8onsx4mm13s/3djWs8U7hFdy2TeDVWS4Cu/762d54683ad54e44aae82c988529cfbe/BBES335REAGNB1_front.png?fit=fill&w=250&h=500",
+      "https://images.ctfassets.net/m8onsx4mm13s/O2zMaCOUsZOkobeTppUqK/81fc86c9d3dc4a70f44381d444a4ea01/BBES335REAGNB1_side.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/wdTGz0uHlzK6uNGcb0Dy9/291c72472f79310d0428cd7f79e94418/BBES335REAGNB1_beauty.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/17rjBaf7yIK9QvPr9pdATJ/74c1d331c951e5bac332bc8bd0661817/BBES335REAGNB1_hs.png?h=900",
+    ],
     highlight: false,
     price: 9999,
     stock: 3,
@@ -30,10 +38,14 @@ const products = [
   },
   {
     brand: "Gibson",
-    model: "ES-345",
-    slug: "es-335",
-    image:
+    model: "ES-345-Ebony",
+    slug: "es-335-ebony",
+    image: [
       "https://images.ctfassets.net/m8onsx4mm13s/12TXJZn8a162RJOkPy6Id6/6aeeeacc99df81e32cd8dbfedecb1d40/front-500_500.png?fit=fill&w=250&h=500",
+      "https://images.ctfassets.net/m8onsx4mm13s/2RBwiVCRirMXjmzWBG1lJE/ca19a96144f3faf27af7bcfeb1c2bc5a/ES4500EBGH1_side.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/6M0Heafh1xUsEQAxN2C2T8/5a1f8a732746885d1141c3215abec1e4/ES4500EBGH1_beauty.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/7rRZGuzql7F7DNgxr2uCEh/555fdd3ac1759ac35a4f75c9cd026a56/ES4500EBGH1_hs.png?h=900",
+    ],
     highlight: false,
     price: 3899,
     stock: 10,
@@ -46,8 +58,12 @@ const products = [
     brand: "Gibson",
     model: "Les Paul Classic",
     slug: "les-paul-classic",
-    image:
+    image: [
       "https://images.ctfassets.net/m8onsx4mm13s/iMwUxsLEderS7Pfuhw4tj/998c84993a119646749c2e29f3566447/LPCS00NYNH1_front_500x500.png?fit=fill&w=250&h=500",
+      "https://images.ctfassets.net/m8onsx4mm13s/7Ciduu4ZCPWRzHQJmF8ATO/396ca7b0bc7286b4ce7a08df49d67661/LPCS00NYNH1_side.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/P3KBX8SGIaNekbJfRuXKo/87f15901a4b6e39c4f4c3e27ed37624c/LPCS00NYNH1_beauty.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/1KSMQlxwvFRFZf8A55OaBn/82d565b06f9e55bf0f3388de4cef5de4/LPCS00NYNH1_hs.png?h=900",
+    ],
     highlight: false,
     price: 2499,
     stock: 15,
@@ -60,8 +76,12 @@ const products = [
     brand: "Gibson",
     model: "Dave Mustaine Flying V EXP Limited Edition ",
     slug: "dave-mustaine-flying-v-exp-limited-edition",
-    image:
+    image: [
       "https://images.ctfassets.net/m8onsx4mm13s/9fEIkEAYWrzXifYy5BRXh/22586dd2e0ad72b1a6f6ab17ebcb7e6b/CSDMFVEBVONH1_front.png?fit=fill&w=250&h=500",
+      "https://images.ctfassets.net/m8onsx4mm13s/3dLBcM8bKM0lLa0C4gNefI/9f7d4e4f9abac007e246cca939c851aa/CSDMFVEBVONH1_side.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/4sk5tsSzaI9M2uXas6e93K/1e4f9ff3465a08ef8d2480e882d59698/CSDMFVEBVONH1_beauty.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/fjCogunoUCXqT4h0Memwr/177bc25a2b746484395859e68abc3688/CSDMFVEBVONH1_hs.png?h=900",
+    ],
     highlight: false,
     price: 6999,
     stock: 3,
@@ -74,8 +94,12 @@ const products = [
     brand: "Gibson",
     model: "CS-356 Figured Top",
     slug: "cs-356-figured-top",
-    image:
+    image: [
       "https://images.ctfassets.net/m8onsx4mm13s/2D998OCqePikgtQVYzAbMA/167345e3f4a7eea0806bc7fc0da1354f/CS356FCGH1E_front_500x500.png?fit=fill&w=250&h=500",
+      "https://images.ctfassets.net/m8onsx4mm13s/26rgRaVXfqpvnQMtH5KxBy/33d42bcbb599dbc18f2a8f24fba77ffe/CS356FCGH1E_side.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/2XP16knQTd0mNbb7AyUW1B/54e6fc7112c74a99d41ca669a65746f7/CS356FCGH1E_beauty.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/6MUiLts8btJANQgsW4cyA3/74dc00452c7499db2490ac17715d30eb/CS356FCGH1E_hs.png?h=900",
+    ],
     highlight: false,
     price: 5499,
     stock: 3,
@@ -88,8 +112,12 @@ const products = [
     brand: "Gibson",
     model: "CS-336 Figured Top",
     slug: "cs-336-figured-top",
-    image:
+    image: [
       "https://images.ctfassets.net/m8onsx4mm13s/7r4dZic5HIJpi8W1gnrNXv/81c53c046bf30d282a78d8defd814909/CS336FVSNH1_front_500x500.png?fit=fill&w=250&h=500",
+      "https://images.ctfassets.net/m8onsx4mm13s/6h4us7KJNIRmIwsOa5XG7O/cf6fa9371c3304850dbb2dcb22374495/CS336FVSNH1_side.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/6BlKM8JzV8prrJIMMQmSK0/cd4ec17cea66999e3cef7a8b9aae2963/CS336FVSNH1_beauty.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/323VgAVSYV4Xg1dzGuOkIB/4beb83a5b1581c256166670bd7ebbfa4/CS336FVSNH1_hs.png?h=900",
+    ],
     highlight: false,
     price: 4999,
     stock: 5,
@@ -102,8 +130,12 @@ const products = [
     brand: "Gibson",
     model: "Les Paul Standard 60s Faded",
     slug: "les-paul-standar-60s-faded",
-    image:
+    image: [
       "https://images.ctfassets.net/m8onsx4mm13s/6MxQ8vJFZ5tQmfl7tII1OJ/c2ccc7ac14a18e42d9a4e510c5ebd014/LPS6F002HNH1_front.png?fit=fill&w=250&h=500",
+      "https://images.ctfassets.net/m8onsx4mm13s/yMTShNIBJOFlP51GtvjDw/a466281ae5c38c7e3246acace45264d3/LPS6F002HNH1_side.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/4CpkQxe3f7dN662tBgLP58/003eb16bef736c45c97992e749b0e1a3/LPS6F002HNH1_pups.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/4VY5lkDcjxDq0S29Bv9a9U/675d33831adf8c142fb8b7a3e8d58318/LPS6F002HNH1_hs_front.png?h=900",
+    ],
     highlight: false,
     price: 2499,
     stock: 10,
@@ -116,8 +148,12 @@ const products = [
     brand: "Gibson",
     model: "SG Standard '61 Faded Maestro Vibrola",
     slug: "sg-standar-61-faded-maestro-vibrol",
-    image:
+    image: [
       "https://images.ctfassets.net/m8onsx4mm13s/ItfBKLkgZTLCKxKyTKImM/5c77ef946c0f54f6871ccda804422e8b/SG61VF00AYNH1_front.png?fit=fill&w=250&h=500",
+      "https://images.ctfassets.net/m8onsx4mm13s/5rrbekLEhGZDZvAEKJZUER/5441b9ae9d71c38664d453376340b341/SG61VF00AYNH1_side.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/3u9IvCSdbCjuVP8UnsR5YX/cc2b70eb1b0c889ed1a78b91dd403693/SG61VF00AYNH1_bridge.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/5wplhsjwgSFiTs7LkcXr8T/5c7d9e5567ad4f1a8c9004ea0f2b86bb/SG61VF00AYNH1_hs.png?h=900",
+    ],
     highlight: false,
     price: 2199,
     stock: 15,
@@ -130,8 +166,12 @@ const products = [
     brand: "Gibson",
     model: "Noel Gallagher 1960 ES-355",
     slug: "noel-gallagher-1960-es-355",
-    image:
+    image: [
       "https://images.ctfassets.net/m8onsx4mm13s/lOtZMlyKWEQTboRk9IVMY/c082e1b6cebda05f8587eebb3f0fa682/60ES355NGASSCBG1_front.png?fit=fill&w=250&h=500",
+      "https://images.ctfassets.net/m8onsx4mm13s/03Bk4yZuTPmISZnISxXXp/d3e187c3a63aa2ad397c1a3113937142/60ES355NGASSCBG1_side.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/kw1yz8oZmPqsmbcJ1C8hG/daddd6d8b2d9bd2635f7d22a2131196a/60ES355NGASSCBG1_body.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/196iTav2bjAKbHhDnj0nmW/4cf7c1c8fb2d78f1f3237f83b1b0c333/60ES355NGASSCBG1_headstock.png?h=900",
+    ],
     highlight: false,
     price: 9999,
     stock: 2,
@@ -144,8 +184,12 @@ const products = [
     brand: "Gibson",
     model: "Dave Mustaine Flying V EXP Rust In Peace",
     slug: "dave-mustaine-flying-v-exp-rust-in-peace",
-    image:
+    image: [
       "https://images.ctfassets.net/m8onsx4mm13s/7EGVlZZhe1yUEQLBQd85hU/786693756ed1660bac3d74eba2b5ff1d/__static.gibson.com_product-images_USA_USA8Y7408_Alien_Tech_Green_front-500_500.png?fit=fill&w=250&h=500",
+      "https://images.ctfassets.net/m8onsx4mm13s/0V52531MOAE6oFClxzg6o9/a81c8d9183d3aedb2d29733b7279d075/__static.gibson.com_product-images_USA_USA8Y7408_Alien_Tech_Green_DSVX21G1BC1_side.jpg?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/5Rk73a87fYuzjy1NMfKujO/cd3aba4982783e04d8b643f426e53536/__static.gibson.com_product-images_USA_USA8Y7408_Alien_Tech_Green_hardware-500_500.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/6QcDMrBZzHtvKOREkiWsD7/9bed6e42386b1b5fd28598602d0af89d/__static.gibson.com_product-images_USA_USA8Y7408_Alien_Tech_Green_neck-side-500_500.png?h=900",
+    ],
     highlight: false,
     price: 2999,
     stock: 7,
@@ -158,8 +202,12 @@ const products = [
     brand: "Gibson",
     model: "Sergio Vallin 1955 Les Paul Goldtop",
     slug: "sergio-vallin-1955-les-paul-goldtop",
-    image:
+    image: [
       "https://images.ctfassets.net/m8onsx4mm13s/5nH8rnG69e9iBt9o9OGJaI/73ce591572d9f2e392e72a365c7950a6/front-500_500.png?fit=fill&w=250&h=500",
+      "https://images.ctfassets.net/m8onsx4mm13s/2UqEcjgjhEVnkDEgmiJ2sA/7cd86459882c45f293b590daf1ae6d33/back-neck-500_500.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/6ioH5jdMPCoONKeoxgEEkQ/21e98b6cb9d7562faa706b5f07e543a5/hardware-500_500.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/4oCytjawoKvTRH4pejgozo/ad86743cd6480b69f9aa2c56c0fc63ec/head-500_500.png?h=900",
+    ],
     highlight: false,
     price: 7999,
     stock: 5,

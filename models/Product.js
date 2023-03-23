@@ -44,14 +44,14 @@ const productSchema = new Schema(
       type: Object,
       require: true,
     },
-
     category: {
       type: Schema.Types.ObjectId,
       ref: "Category",
     },
-    // subcategory: {
-    //   type: String,
-    // },
+    brands: {
+      type: Schema.Types.ObjectId,
+      ref: "Brands",
+    },
   },
   { timestamps: true }
 );

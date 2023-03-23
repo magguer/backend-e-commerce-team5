@@ -5,10 +5,10 @@ async function runAllSeeders() {
 
   await require("./adminSeeder")();
   await require("./userSeeder")();
-  await require("./productSeeder")();
-  await require("./orderSeeder")();
-  await require("./statusSeeder")();
   await require("./categorySeeder")();
+  await require("./productSeeder")();
+  await require("./statusSeeder")();
+  await require("./orderSeeder")();
 
   console.log("[Database] ¡Los datos de prueba fueron insertados!");
   process.exit();

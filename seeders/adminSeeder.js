@@ -14,5 +14,5 @@ module.exports = async () => {
     rol: 200,
   };
   await Admin.create(admin);
-  console.log("[Database] Se corrió el seeder de Users.");
+  console.log("[Database] Se corrió el seeder de admins.");
 };

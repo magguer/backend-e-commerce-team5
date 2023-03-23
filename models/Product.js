@@ -45,10 +45,10 @@ const productSchema = new Schema(
       require: true,
     },
 
-    // category: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: "Category",
-    // },
+    category: {
+      type: Schema.Types.ObjectId,
+      ref: "Category",
+    },
     // subcategory: {
     //   type: String,
     // },

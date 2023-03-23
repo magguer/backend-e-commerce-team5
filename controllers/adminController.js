@@ -1,10 +1,12 @@
 const { Admin } = require("../models");
+const { Category } = require("../models");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 // Display a listing of users
 async function index(req, res) {
   const admins = await Admin.find();
+
   res.json(admins);
 }
 
@@ -62,6 +64,10 @@ async function destroy(req, res) {
 //// create token
 
 async function createToken(req, res) {
+  const categories = await Category.find({ name: "Electric" }).populate(
+    "products"
+  );
+  console.log(categories);
   try {
     const admin = await Admin.findOne({ email: req.body.email });
 
@@ -69,9 +75,6 @@ async function createToken(req, res) {
       req.body.password,
       admin.password
     );
-
-    console.log(admin);
-    console.log(matchPassword);
 
     if (admin && matchPassword) {
       const token = jwt.sign({ adminId: admin.id }, process.env.SESSION_SECRET);
@@ -84,6 +87,7 @@ async function createToken(req, res) {
           rol: admin.rol,
           token: token,
         },
+        categories,
       });
     } else res.json("No existe este administrador");
   } catch (err) {

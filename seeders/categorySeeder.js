@@ -1,23 +1,26 @@
-
 const { faker } = require("@faker-js/faker");
 const { Category } = require("../models");
-const slugify = require('slugify')
+const { User } = require("../models");
+const slugify = require("slugify");
 
 faker.locale = "es";
 
-let ArrayCategories = ['Electric','Acoustic','Bass','Audio Pro']
+let ArrayCategories = ["Electric", "Acoustic", "Bass", "Audio Pro"];
+
+const numbers = [1, 2, 3, 4];
 
 module.exports = async () => {
   const categories = [];
-  for(let i=0;i<ArrayCategories.length;i++){
-     const category = new Category({
+  for (let i = 0; i < ArrayCategories.length; i++) {
+    const category = new Category({
       name: ArrayCategories[i],
-      products:[]
-     })
-    categories.push(category) 
+      number: numbers[i],
+      products: [],
+    });
+    categories.push(category);
   }
 
   await Category.insertMany(categories);
 
-  console.log("[Database] Se corrió el seeder de Users.");
+  console.log("[Database] Se corrió el seeder de categories.");
 };

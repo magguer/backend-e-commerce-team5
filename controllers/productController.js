@@ -10,6 +10,7 @@ async function index(req, res) {
 async function show(req, res) {
   const productSlug = req.params.slug;
   const product = await Product.findOne({ slug: productSlug });
+  console.log(productSlug);
   res.json(product);
 }
 

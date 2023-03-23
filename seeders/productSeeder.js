@@ -8,11 +8,17 @@ faker.locale = "es";
 module.exports = async () => {
   const products = [];
   for (let productDb of productsDb) {
+    const images = {
+      original: productDb.image,
+      thumbnail: productDb.image,
+    };
+
     const product = new Product({
       brand: productDb.brand,
       model: productDb.model,
       slug: productDb.slug,
       image: productDb.image,
+      images: [images],
       highlight: productDb.highlight,
       price: productDb.price,
       stock: productDb.stock,

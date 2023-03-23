@@ -15,6 +15,7 @@ const adminSchema = new Schema(
       type: String,
       required: [true, "inserte su nombre"],
     },
+    lastname: { type: String, required: [true, "inserte su apellido"] },
     email: {
       type: String,
       required: [true, "Inserte un email."],

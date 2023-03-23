@@ -62,11 +62,18 @@ async function createToken(req, res) {
       user.password
     );
 
-    if (user && matchPassword) {
+    if (user) {
       const token = jwt.sign({ userId: user.id }, process.env.SESSION_SECRET);
       res.json({
-        token: token,
-        user: { id: user._id },
+        user: {
+          id: user._id,
+          firstname: user.firstname,
+          lastname: user.lastname,
+          email: user.email,
+          address: user.address,
+          orders: user.orders,
+          token: token,
+        },
       });
     } else res.json("No existe este usuario");
   } catch (err) {

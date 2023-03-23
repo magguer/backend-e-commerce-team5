@@ -3,6 +3,8 @@ const router = express.Router();
 const { expressjwt: checkJwt } = require("express-jwt");
 const adminController = require("../controllers/adminController");
 
+router.post("/token", adminController.createToken);
+
 router.use(
   checkJwt({
     secret: process.env.SESSION_SECRET,

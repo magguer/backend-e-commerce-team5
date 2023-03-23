@@ -51,9 +51,12 @@ async function destroy(req, res) {
   const user = await User.findByIdAndDelete(userId);
   res.json({ message: "The User was deleted", userDeleted: user });
 }
+
+//// create token
+
 async function createToken(req, res) {
   try {
-    const user = await User.findOne({ username: req.body.email });
+    const user = await User.findOne({ email: req.body.email });
     const matchPassword = await bcrypt.compare(
       req.body.password,
       user.password

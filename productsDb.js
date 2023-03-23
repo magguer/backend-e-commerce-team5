@@ -12,7 +12,7 @@ const products = [
     highlight: false,
     price: 2199,
     stock: 10,
-    category: 1,
+    category: "Electric",
     subtitle: "Designed by the Green Day Punk Rock Legend",
     description:
       "The new Billie Joe Armstrong Les Paul™ Junior is an exceptional guitar to rock out on, whether you play rock or punk. Designed in collaboration with Green Day’s legendary guitarist, it has everything you need for great tone with no frills to get in your way, including a mahogany neck with a Billie Joe Armstrong SlimTaper™ profile, rosewood fretboard, Graph Tech® nut, and Billie Joe’s signature on the truss rod cover. The mahogany body is equipped with a wraparound bridge/tailpiece and a P-90 DC Dogear pickup. The P-90 DC is our latest hum-canceling design. It features a modernized version of the Sidewinder dual-coil technology that was first developed by Seth Lover in 1958, delivering a hum-free P-90 with the most authentic P-90 tonality yet, retaining the classic sound of a single",
@@ -36,7 +36,7 @@ const products = [
     highlight: false,
     price: 9999,
     stock: 3,
-    category: 1,
+    category: "Electric",
     subtitle:
       "A Faithful Tribute to a Live Music Icon and a Legendary Guitarist",
     description:
@@ -61,7 +61,7 @@ const products = [
     highlight: false,
     price: 3899,
     stock: 10,
-    category: 1,
+    category: "Electric",
     subtitle: "The Cornerstone Just Got Smoother",
     description:
       "The Gibson ES-345 boasts a number of aesthetic enhancements over the flagship ES- 335. Crafted with a maple center block and quarter-sawn Adirondack spruce bracing, players will be impressed by the lightweight feel and expanded range of tonal capabilities. The body is wrapped in multi-ply binding and the bound fingerboard has Split Parallelogram inlays exclusive to this model in the ES™ series. The ES-345 is equipped with a variety of high-end appointments like our hand-wired control assembly with Orange Drop® capacitors, Gibson's new Calibrated T-Type humbucking pickups, Vintage Deluxe style tuners, and lightweight aluminum ABR-1 Tune-O-Matic™ bridge and Stop Bar tailpiece anchored with steel thumb-wheels and studs.",
@@ -85,7 +85,7 @@ const products = [
     highlight: false,
     price: 2499,
     stock: 15,
-    category: 1,
+    category: "Electric",
     subtitle: "Classic Vibes and Contemporary Performance, Now in Deep Purple",
     description:
       "The Gibson Les Paul™ Classic combines the early 60s style Les Paul model with some functional and time-tested modifications. As expected, the Les Paul Classic is crafted with a mahogany back and maple top coupled with a SlimTaper mahogany neck and a bound rosewood fingerboard. Burstbucker™ 61R & 61T zebra, open-coil pickups provide classic Gibson tones from the era with a bit of extra punch thanks to the open coils. The control assembly features 4 push-pull pots, which provide choices of coil tapping, phase switching, and Pure Bypassing for functional and versatile sonic variety.",
@@ -109,7 +109,7 @@ const products = [
     highlight: false,
     price: 6999,
     stock: 3,
-    category: 1,
+    category: "Electric",
     subtitle: "Limited Availability, Unlimited Performance",
     description:
       "Dave Mustaine is the legendary guitarist, vocalist, songwriter, and founder of the multi-platinum selling and Grammy® Award-winning band, MEGADETH. His new Gibson Dave Mustaine Flying V™ EXP Limited Edition delivers the powerful, heavy sound and exceptional playing performance that he demands. The 25.5” scale mahogany neck has a bound ebony fretboard with 24 frets, Mother of Pearl inlays, an Explorer™-style headstock with Grover® Mini Rotomatic® tuners, and a Graph Tech® TUSQ® nut. Dave Mustaine's signature is reproduced on the truss rod cover, and Dave's silhouette is featured on the back of the headstock. The mahogany Flying V-style body has a maple cap (figured maple on the Red Amber Burst version) and is equipped with a Tune-O-Matic™ bridge, a string",
@@ -134,7 +134,7 @@ const products = [
     highlight: false,
     price: 5499,
     stock: 3,
-    category: 1,
+    category: "Electric",
     subtitle: "Figured Beauty, Solid Tones",
     description:
       "Classic Gibson Custom appointments adorn the Gibson Custom Shop’s CS-356 Figured Top model. While visually similar to Gibson Custom’s ES™ models, the CS-356 is constructed with carved and chambered solid woods, including a stunning figured maple top, for a unique sound all its own that combines elements of archtop, Les Paul™, and semi-hollowbody tones in a deceptive ES-style package. The compact body shape is well balanced and resists feedback while remaining extremely resonant. The sound is captured by a pair of ’57 Classic™ humbucking pickups. The Gibson Custom CS-356 Figured Top",
@@ -158,7 +158,7 @@ const products = [
     highlight: false,
     price: 4999,
     stock: 5,
-    category: 1,
+    category: "Electric",
     subtitle: "Semi-Hollow Tones, Solid Performance",
     description:
       "Gibson Custom Shop is the pinnacle of craftsmanship, quality, and sound excellence. Each instrument celebrates Gibson's legacy through accuracy, authenticity, and attention to detail. While visually similar to Gibson Custom’s ES™ models, the CS-336 Figured Top is constructed with carved and chambered solid woods for a sound all its own that combines elements of archtop, Les Paul™, and semi-hollowbody tones. The compact body shape is well balanced and resists feedback while remaining extremely resonant. The sound is captured by a pair of ’57 Classic™ humbucking pickups. Whether you use it on stage or in the studio, the CS-336 Figured Top is a beautiful - and solid - choice!",
@@ -182,7 +182,7 @@ const products = [
     highlight: false,
     price: 2499,
     stock: 10,
-    category: 1,
+    category: "Electric",
     subtitle: "A Whole Lotta Les - Now in Faded Dress",
     description:
       "The new Les Paul™ Standard returns to the classic design that made it relevant, played, and loved -- shaping sound across generations and genres of music. It pays tribute to Gibson's Golden Era of innovation and brings authenticity back to life. The Les Paul Standard 60s features a satin nitrocellulose lacquer finish that gives it the look and feel of a long-treasured musical companion. It has a solid mahogany body with an AA figured maple top and a SlimTaper™ 60s-style mahogany neck with a rosewood fingerboard and trapezoid inlays. It's equipped with an ABR-1 Tune-O-Matic™ bridge, aluminum Stop Bar tailpiece, Grover® Rotomatic Kidney tuners, and gold Top Hat knobs with Silver Reflectors and Dial Pointers. The open-coil 60s Burstbucker™ pickups are loaded with A . . .",
@@ -206,7 +206,7 @@ const products = [
     highlight: false,
     price: 2199,
     stock: 15,
-    category: 1,
+    category: "Electric",
     subtitle: "The Choice of Legends - Now in a Beautiful Faded Finish",
     description:
       "The SG™ Standard ‘61 Faded Maestro™ Vibrola™ returns to the classic design that made it relevant, played, and loved -- shaping sound across generations and genres of music. It features a satin nitrocellulose lacquer finish that gives it the look and feel of a long-treasured musical companion. As the name implies, the Gibson SG Standard '61 Faded Maestro Vibrola also adds vibrato capability. The Maestro Vibrola offers smooth vibrato effects and the classic styling of the Lyre engraving on the tailpiece cover. Standard features include a SlimTaper™ mahogany neck and a bound rosewood fingerboard. The mahogany body features deeply sculpted body scarfing, a 5-ply teardrop pickguard, and a 22nd-fret neck joint. The nickel-plated hardware includes an ABR-1 Tune-O-Matic™ bridge and Keysto ",
@@ -230,7 +230,7 @@ const products = [
     highlight: false,
     price: 9999,
     stock: 2,
-    category: 1,
+    category: "Electric",
     subtitle: "Someday You Might Find Your Hero",
     description:
       "Noel Gallagher's affiliation with ES™-style guitars stretches back to the beginning of Oasis, the peak of which was in 1997 when he purchased a 1960 Gibson ES-355. Deemed at the time too nice to play, this was initially intended to remain a collector's piece until finally making it to the stage in the early 00s, where it has remained a constant ever since. Now, 20 years later, Gibson Custom is proud to announce the Noel Gallagher 1960 ES-355. Aged by the Murphy Lab and limited to just 200 units globally, this replication will include all the appointments which make the Gibson ES-355 the pinnacle of guitar craftsmanship, including a multi-ply bound maple body, a mahogany neck and ebony fretboard, a Varitone switch, and a Bigsby® B7 vibrato tailpiece. A reproduced",
@@ -254,7 +254,7 @@ const products = [
     highlight: false,
     price: 2999,
     stock: 7,
-    category: 1,
+    category: "Electric",
     subtitle: "Designed by Metal Icon Dave Mustaine",
     description:
       "Dave Mustaine is the legendary guitarist, vocalist, songwriter, and founder of the multi-platinum selling and Grammy® Award-winning band, MEGADETH. His new Gibson Dave Mustaine Flying V™ EXP Rust In Peace Artist model delivers the powerful, heavy sound and exceptional playing performance that he demands. The 25.5” scale mahogany neck has an ebony fretboard with a compound fretboard radius, 24 medium jumbo frets, two-tone green/pearloid Rust In Peace diamond inlays, an Explorer™-style headstock with Grover® Mini Rotomatic® tuners with Kidney buttons, a Graph Tech® nut, and Dave Mustaine's signature on the truss rod cover. The mahogany Flying V-style body is equipped with a Tune-O-Matic™ bridge, a Stop Bar tailpiece, and a Dave Mustaine signature Seymour Ducan",
@@ -302,7 +302,7 @@ const products = [
     highlight: false,
     price: 4299,
     stock: 30,
-    category: 2,
+    category: "Acoustic",
     subtitle: "Artist Model 3.0 for Keb’ Mo’",
     description:
       "Gibson is proud to announce the third artist model made in collaboration with multi-talented guitarist, singer, songwriter, and five-time Grammy® award winner Keb’ Mo’ – the Keb’ Mo’ “3.0” 12-Fret J-45™. This new core model is ideal for a wide variety of musical compositions and playing styles and features a thermally aged Sitka spruce top, mahogany back and sides, and a 25” scale mahogany neck with a rosewood fretboard, custom Keb’ Mo’ profile, and open-back Grover® tuners. The neck joins the body at the 12th fret, giving this guitar the rounder, more full-bodied tone and exceptional playing comfort that only a 12-fret neck can provide. Equipped with L.R. Baggs electronics, it's studio and stage-ready, the moment you take it out of the included hardshell case.",
@@ -326,7 +326,7 @@ const products = [
     highlight: false,
     price: 7999,
     stock: 10,
-    category: 2,
+    category: "Acoustic",
     subtitle: "A Tribute To One of Rock's Greatest Duos",
     description:
       "Phil and Don Everly were music royalty. Members of the Rock and Roll Hall of Fame, the Everly Brothers enjoyed a long string of highly influential hit records driven by their soaring harmonies and propelled by their matching Gibson acoustic guitars. The Gibson Acoustic Custom Shop is proud to celebrate their musical legacy with the release of The Everly Brothers SJ-200. Featuring AA flame maple back and sides paired with a thermally aged Sitka spruce top, which is capped with the dual pickguards that the Everly Brothers made famous. The Everly Brothers SJ-200 also has essential SJ-200 cosmetic features, such as the classic mother of pearl graduated crown inlays on the rosewood fretboard, as well as a Moustache™ bridge with four bar mother of pearl inlays. The bridge saddle, nut, and bri . . .",
@@ -350,7 +350,7 @@ const products = [
     highlight: false,
     price: 3499,
     stock: 20,
-    category: 2,
+    category: "Acoustic",
     subtitle:
       "One of Gibson's Most Distinguished Acoustics, With a Beautiful Faded Finish",
     description:
@@ -375,7 +375,7 @@ const products = [
     highlight: false,
     price: 2499,
     stock: 40,
-    category: 2,
+    category: "Acoustic",
     subtitle: "The World-Famous Workhorse With a Beautiful Faded Finish",
     description: `The J-45 is Gibson's best-selling acoustic of all time. Nicknamed "The Workhorse" and first introduced in 1942, this iconic acoustic has become the cornerstone of its round-shoulder, dreadnought line. World-renowned for its full, balanced expression, warm bass, and excellent projection, the J-45 has been refined to carry this legacy to new heights. The Gibson J-45 50s Faded delivers full-spectrum sound with incredible dynamic range, warm mids, and tight, punchy bass. Now available with a faded satin nitrocellulose lacquer finish that accentuates the guitar's vintage vibe and equipped with a modern LR Baggs pickup and electronics package for studio and stage use. A hardshell case is also included.`,
     detail: {
@@ -399,6 +399,105 @@ const products = [
     price: 3749,
     stock: 8,
     category: 2,
+    subtitle:
+      "An Ideal Blend of Modern and Traditional Features in an Artist Model Acoustic",
+    description:
+      "Whether you’re writing a song at home, laying it down in the studio, or bringing it to thousands on stage, the Jerry Cantrell “Atone” Songwriter delivers. Made to the Alice in Chains guitarist's specifications and prominently featured in his “Atone” video, the Jerry Cantrell “Atone” Songwriter builds upon the traditional Gibson Songwriter platform. It adds several unique, personalized features, including a thinner body depth for playing comfort, his signature “Circle in Square” pickguard, Jerry Cantrell signature on the truss rod cover, Double J waterslide decal on the back of the headstock, “12” inlay at the 12th fret, gold hardware with gold Grover® Mini Rotomatic® tuners, and an L.R. Baggs™ VTC pickup and preamp so it’s ready to plug in whenever you are.",
+    detail: {
+      bodyStyle: "Songwriter",
+      bodyShape: "Songwriter",
+      bodyMaterial: "Rosewood",
+      bodyFinish: "Gloss Nitrocellulose Lacquer",
+    },
+  },
+  {
+    brand: "Gibson",
+    model: "Jerry Cantrell Atone Songwriter",
+    slug: "jerry-cantrell-atone-songwriter",
+    image: [
+      "https://images.ctfassets.net/m8onsx4mm13s/7pT5rswupHe0LpsO0eUJXL/3244cb6aca227791d66c6c290674c5ff/__static.gibson.com_product-images_Acoustic_ACC9WR562_Ebony_AMSSJCEB_front.jpg?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/7lUB0njMDSrf4j1959lLbS/b434ce9fc77c292e97a04ed49ecefdee/__static.gibson.com_product-images_Acoustic_ACC9WR562_Ebony_AMSSJCEB_back.jpg?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/6Ilms9pSy3EPqGhNWHRdNo/c673733d3df30825f9f38ec45e78727b/__static.gibson.com_product-images_Acoustic_ACC9WR562_Ebony_hardware-500_500.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/4x6JQAl8kjXBrJ3fGQvngS/29126b76d33bc2aca1f9c50c977b1786/__static.gibson.com_product-images_Acoustic_ACC9WR562_Ebony_head-640_480.png?h=900",
+    ],
+    highlight: false,
+    price: 3749,
+    stock: 8,
+    category: "Acoustic",
+    subtitle:
+      "An Ideal Blend of Modern and Traditional Features in an Artist Model Acoustic",
+    description:
+      "Whether you’re writing a song at home, laying it down in the studio, or bringing it to thousands on stage, the Jerry Cantrell “Atone” Songwriter delivers. Made to the Alice in Chains guitarist's specifications and prominently featured in his “Atone” video, the Jerry Cantrell “Atone” Songwriter builds upon the traditional Gibson Songwriter platform. It adds several unique, personalized features, including a thinner body depth for playing comfort, his signature “Circle in Square” pickguard, Jerry Cantrell signature on the truss rod cover, Double J waterslide decal on the back of the headstock, “12” inlay at the 12th fret, gold hardware with gold Grover® Mini Rotomatic® tuners, and an L.R. Baggs™ VTC pickup and preamp so it’s ready to plug in whenever you are.",
+    detail: {
+      bodyStyle: "Songwriter",
+      bodyShape: "Songwriter",
+      bodyMaterial: "Rosewood",
+      bodyFinish: "Gloss Nitrocellulose Lacquer",
+    },
+  },
+  {
+    brand: "Gibson",
+    model: "SG Standard Bass",
+    slug: "sg-standar-bass",
+    image: [
+      "https://images.ctfassets.net/m8onsx4mm13s/1FwWFCcvYYSEtHVNrOPaq1/ce4170d25bc2ac00801efec5faba3331/__static.gibson.com_product-images_USA_USABCH291_Heritage_Cherry_BASG19HCCH1_front.jpg?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/4N1L7RJsZpmVXUiSRJGHw7/b521910a86d5dde2af9498c23a3935ea/__static.gibson.com_product-images_USA_USABCH291_Heritage_Cherry_BASG19HCCH1_back.jpg?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/1X94lNgVGeyjVXkxiaNf88/9d4b4b1f7a3c5dcd6d595a37402e278c/__static.gibson.com_product-images_USA_USABCH291_Heritage_Cherry_hardware-500_500.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/1VGFwHV1MoweXZ120UZ66J/79abbfb9879b5095494ef0cfa622f378/__static.gibson.com_product-images_USA_USABCH291_Heritage_Cherry_neck-side-500_500.png?h=900",
+    ],
+    highlight: false,
+    price: 1799,
+    stock: 10,
+    category: "Bass",
+    subtitle: "Short Scale. Big Tone. Legendary Looks.",
+    description:
+      "The SG Bass has the legendary looks, sound and feel which made it one of Gibson's most iconic basses. The short scale length is actually a big part of this sound! While the short scale length of the SG Bass is preferred by smaller players, it's also preferred by many for the strong fundamental tone for which this short scale bass is known. As expected, the solid mahogany body has deeply sculpted scarfing and the rounded profile mahogany neck and rosewood fingerboard feels familiar and comfortable. A pair of calibrated SG bass pickups (neck and bridge) with individual volume and master tone controls add further tonal possibilities.",
+    detail: {
+      bodyStyle: "SG",
+      bodyShape: "Bass",
+      bodyMaterial: "Mahogany",
+      bodyFinish: "Gloss Nitrocellulose Lacquer",
+    },
+  },
+  {
+    brand: "Gibson",
+    model: "Jerry Cantrell Atone Songwriter",
+    slug: "jerry-cantrell-atone-songwriter",
+    image: [
+      "https://images.ctfassets.net/m8onsx4mm13s/7pT5rswupHe0LpsO0eUJXL/3244cb6aca227791d66c6c290674c5ff/__static.gibson.com_product-images_Acoustic_ACC9WR562_Ebony_AMSSJCEB_front.jpg?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/7lUB0njMDSrf4j1959lLbS/b434ce9fc77c292e97a04ed49ecefdee/__static.gibson.com_product-images_Acoustic_ACC9WR562_Ebony_AMSSJCEB_back.jpg?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/6Ilms9pSy3EPqGhNWHRdNo/c673733d3df30825f9f38ec45e78727b/__static.gibson.com_product-images_Acoustic_ACC9WR562_Ebony_hardware-500_500.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/4x6JQAl8kjXBrJ3fGQvngS/29126b76d33bc2aca1f9c50c977b1786/__static.gibson.com_product-images_Acoustic_ACC9WR562_Ebony_head-640_480.png?h=900",
+    ],
+    highlight: false,
+    price: 3749,
+    stock: 8,
+    category: "Bass",
+    subtitle:
+      "An Ideal Blend of Modern and Traditional Features in an Artist Model Acoustic",
+    description:
+      "Whether you’re writing a song at home, laying it down in the studio, or bringing it to thousands on stage, the Jerry Cantrell “Atone” Songwriter delivers. Made to the Alice in Chains guitarist's specifications and prominently featured in his “Atone” video, the Jerry Cantrell “Atone” Songwriter builds upon the traditional Gibson Songwriter platform. It adds several unique, personalized features, including a thinner body depth for playing comfort, his signature “Circle in Square” pickguard, Jerry Cantrell signature on the truss rod cover, Double J waterslide decal on the back of the headstock, “12” inlay at the 12th fret, gold hardware with gold Grover® Mini Rotomatic® tuners, and an L.R. Baggs™ VTC pickup and preamp so it’s ready to plug in whenever you are.",
+    detail: {
+      bodyStyle: "Songwriter",
+      bodyShape: "Songwriter",
+      bodyMaterial: "Rosewood",
+      bodyFinish: "Gloss Nitrocellulose Lacquer",
+    },
+  },
+  {
+    brand: "Gibson",
+    model: "Jerry Cantrell Atone Songwriter",
+    slug: "jerry-cantrell-atone-songwriter",
+    image: [
+      "https://images.ctfassets.net/m8onsx4mm13s/7pT5rswupHe0LpsO0eUJXL/3244cb6aca227791d66c6c290674c5ff/__static.gibson.com_product-images_Acoustic_ACC9WR562_Ebony_AMSSJCEB_front.jpg?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/7lUB0njMDSrf4j1959lLbS/b434ce9fc77c292e97a04ed49ecefdee/__static.gibson.com_product-images_Acoustic_ACC9WR562_Ebony_AMSSJCEB_back.jpg?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/6Ilms9pSy3EPqGhNWHRdNo/c673733d3df30825f9f38ec45e78727b/__static.gibson.com_product-images_Acoustic_ACC9WR562_Ebony_hardware-500_500.png?h=900",
+      "https://images.ctfassets.net/m8onsx4mm13s/4x6JQAl8kjXBrJ3fGQvngS/29126b76d33bc2aca1f9c50c977b1786/__static.gibson.com_product-images_Acoustic_ACC9WR562_Ebony_head-640_480.png?h=900",
+    ],
+    highlight: false,
+    price: 3749,
+    stock: 8,
+    category: "Bass",
     subtitle:
       "An Ideal Blend of Modern and Traditional Features in an Artist Model Acoustic",
     description:

@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 // Display a listing of users
 async function index(req, res) {
   const admins = await Admin.find();
-
+  console.log(req.auth);
   res.json(admins);
 }
 
@@ -19,7 +19,6 @@ async function show(req, res) {
 
 // Show the form for creating a new resource
 async function create(req, res) {
-  const bodyData = req.body;
   const newAdmin = await Admin.create({
     firstname: bodyData.firstname,
     lastname: bodyData.lastname,

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { expressjwt: checkJwt } = require("express-jwt");
 const adminController = require("../controllers/adminController");
+const adminAuthenticated = require("../Middlewares/adminAuthenticate");
 
 router.post("/token", adminController.createToken);
 
@@ -11,6 +12,7 @@ router.use(
     algorithms: ["HS256"],
   })
 );
+router.use(adminAuthenticated);
 
 router.get("/", adminController.index);
 router.post("/", adminController.create);

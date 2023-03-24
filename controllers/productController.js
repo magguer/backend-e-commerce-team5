@@ -20,25 +20,37 @@ async function create(req, res) {
     const slug = model.split(" ").join("-").toLowerCase();
     return slug;
   }
-  const brand = await Brand.findOne({ name: req.body.brand })
-  const category = await Category.findOne({ name: req.body.category })
-  const newProduct = await Product.create({
-    brand: brand._id,
-    model: req.body.model,
-    slug: createSlug(req.body.model),
-    image: [req.body.image],
-    category: category._id,
-    highlight: req.body.highlight,
-    price: req.body.price,
-    stock: req.body.stock,
-    subtitle: req.body.subtitle,
-    description: req.body.description,
+  const form = formidable({
+    uploadDir: __dirname + "/../public/img",
+    keepExtensions: true,
+    multiples: true,
   });
-  brand.products.push(newProduct._id)
-  category.products.push(newProduct._id)
-  brand.save()
-  category.save()
-  res.json(newProduct);
+  form.parse(req, async (err, fields, files) => {
+    console.log(files)
+    const brand = await Brand.findOne({ name: fields.brand })
+    const category = await Category.findOne({ name: fields.category });
+    const newProduct = await Product.create(
+      {
+        brand: brand._id,
+        model: fields.model,
+        slug: fields.slug,
+        image: [files.image1.newFilename,files.image2.newFilename],
+        highlight: fields.highlight,
+        price: fields.price,
+        stock: fields.stock,
+        subtitle: fields.subtitle,
+        description: fields.description,
+        category:"641e002fad73e0e0a7abdfbb"
+      },
+      { returnOriginal: false }
+    );
+    brand.products.push(newProduct._id);
+    category.products.push(newProduct._id);
+    brand.save();
+    category.save();
+    res.json(newProduct);
+  });
+
 }
 
 // Patch Product
@@ -89,7 +101,7 @@ async function edit(req, res) {
       brand.save()
     }
     res.json("Todo Ok");
-  })
+  });
 }
 
 async function updateStock(req, res) {

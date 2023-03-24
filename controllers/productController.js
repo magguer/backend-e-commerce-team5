@@ -35,6 +35,7 @@ async function create(req, res) {
     description: req.body.description,
   });
   brand.products.push(newProduct._id)
+  category.products.push(newProduct._id)
   brand.save()
   res.json(newProduct);
 }

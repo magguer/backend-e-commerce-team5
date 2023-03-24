@@ -278,7 +278,7 @@ const products = [
     highlight: false,
     price: 7999,
     stock: 5,
-    category: 1,
+    category: "Electric",
     subtitle: "A Goldtop With Lots of Positive Energy",
     description:
       "Sergio Vallín is the talented guitarist for Maná (which is Polynesian for positive energy), the most influential Spanish rock band worldwide, and one of the world's most popular bands regardless of language or genre. His new Gibson artist model has the features and performance he requires, including an ultra-light mahogany body with a two-piece plain maple top and a mahogany neck with a rosewood fretboard and '59 Rounded C profile. It also is equipped with Kluson® reissue tuners, a Bigsby® B7 vibrato, and features custom aging from the Murphy Lab, giving it the look and feel of a cherished vintage guitar. The electronics include a custom P-90 Soapbar pickup in the neck position and a bridge Custombucker, giving it excellent sonic versatility.",
@@ -398,7 +398,7 @@ const products = [
     highlight: false,
     price: 3749,
     stock: 8,
-    category: 2,
+    category: "Acoustic",
     subtitle:
       "An Ideal Blend of Modern and Traditional Features in an Artist Model Acoustic",
     description:

@@ -4,6 +4,7 @@ async function runAllSeeders() {
   await mongoose.connection.dropDatabase();
 
   await require("./adminSeeder")();
+  await require("./brandSeeder")();
   await require("./userSeeder")();
   await require("./categorySeeder")();
   await require("./productSeeder")();

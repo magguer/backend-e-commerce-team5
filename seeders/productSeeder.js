@@ -3,6 +3,7 @@ const { Product } = require("../models");
 const { Category } = require("../models");
 const slugify = require("slugify");
 const productsDb = require("../productsDb");
+const Brand = require("../models/Brand");
 
 faker.locale = "es";
 
@@ -13,13 +14,14 @@ module.exports = async () => {
     const productCategory = await Category.findOne({
       name: productDb.category,
     });
+    const productBrand = await Brand.findOne({name:productDb.brand})
     const images = {
       original: productDb.image,
       thumbnail: productDb.image,
     };
 
     const product = new Product({
-      brand: productDb.brand,
+      brand: productBrand._id,
       model: productDb.model,
       slug: productDb.slug,
       image: productDb.image,
@@ -33,9 +35,11 @@ module.exports = async () => {
       category: productCategory,
     });
     productCategory.products.push(product._id);
+    productBrand.products.push(product._id)
 
     products.push(product);
     productCategory.save();
+    productBrand.save();
   }
 
   await Product.insertMany(products);

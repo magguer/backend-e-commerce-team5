@@ -3,7 +3,8 @@ const { Schema, mongoose } = require("../db");
 const productSchema = new Schema(
   {
     brand: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "Brand",
       require: true,
     },
     model: {

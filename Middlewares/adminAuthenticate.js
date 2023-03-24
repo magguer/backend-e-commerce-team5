@@ -1,8 +1,7 @@
 const { Admin } = require("../models");
 async function adminAuthenticated(req, res, next) {
   const admin = await Admin.findById(req.auth.adminId);
-  console.log(admin);
-  console.log(req.auth);
+
   if (admin) {
     return next();
   } else {

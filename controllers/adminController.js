@@ -3,22 +3,23 @@ const { Category } = require("../models");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// Display a listing of users
+// Index Admin
 async function index(req, res) {
   const admins = await Admin.find();
   console.log(req.auth);
   res.json(admins);
 }
 
-// Display the specified resource.
+// Show Admin
 async function show(req, res) {
   const adminId = req.params.id;
   const admin = await Admin.findById(adminId);
   res.json(admin);
 }
 
-// Show the form for creating a new resource
+// Post Admin
 async function create(req, res) {
+  const bodyData = req.body
   const newAdmin = await Admin.create({
     firstname: bodyData.firstname,
     lastname: bodyData.lastname,
@@ -48,7 +49,7 @@ async function edit(req, res) {
 }
 
 // Update the specified resource in storage.
-async function update(req, res) {}
+async function update(req, res) { }
 
 // Remove the specified resource from storage.
 async function destroy(req, res) {

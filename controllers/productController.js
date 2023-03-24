@@ -49,10 +49,11 @@ async function edit(req, res) {
     multiples: true,
   });
   form.parse(req, async (err, fields, files) => {
-
     const brand = await Brand.findOne({ name: fields.brand })
+    const product = await Product.findById(fields.product)
+    await Brand.findOneAndUpdate({ name: fields.oldBrand }, { $pull: { products: product._id } })
     if (files.image) {
-      await Product.findByIdAndUpdate(
+      const product = await Product.findByIdAndUpdate(
         fields.product,
         {
           brand: brand._id,
@@ -67,8 +68,10 @@ async function edit(req, res) {
         },
         { returnOriginal: false }
       );
+      brand.products.push(product)
+      brand.save()
     } else {
-      await Product.findByIdAndUpdate(
+      const product = await Product.findByIdAndUpdate(
         fields.product,
         {
           brand: brand._id,
@@ -82,6 +85,8 @@ async function edit(req, res) {
         },
         { returnOriginal: false }
       );
+      brand.products.push(product)
+      brand.save()
     }
     res.json("Todo Ok");
   })

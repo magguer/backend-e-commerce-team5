@@ -6,6 +6,11 @@ async function index(req, res) {
   res.json(orders);
 }
 
+async function lastOrders(req, res) {
+  const orders = await Order.find().sort({ $natural: -1 }).limit(10).populate("user").populate("status");;
+  res.json(orders);
+}
+
 // Display the specified resource.
 async function show(req, res) {
   const orderId = req.params.id;
@@ -23,24 +28,24 @@ async function create(req, res) {
     password: await bcrypt.hash(bodyData.password, 8),
     rol: bodyData.rol,
   });
-
   res.json(newAdmin);
 }
 
 // Store a newly created resource in storage.
-async function store(req, res) {}
+async function store(req, res) { }
 
 // Show the form for editing the specified resource.
-async function edit(req, res) {}
+async function edit(req, res) { }
 
 // Update the specified resource in storage.
-async function update(req, res) {}
+async function update(req, res) { }
 
 // Remove the specified resource from storage.
-async function destroy(req, res) {}
+async function destroy(req, res) { }
 
 module.exports = {
   index,
+  lastOrders,
   show,
   create,
   store,

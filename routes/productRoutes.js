@@ -14,7 +14,7 @@ router.use(
 );
 
 router.post("/create", productController.create);
-router.patch("/:slug/edit", productController.edit);
+router.patch("/:slug", productController.edit);
 router.patch("/:slug/update-stock", productController.updateStock);
 router.delete("/:id", productController.destroy);
 

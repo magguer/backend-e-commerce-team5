@@ -1,4 +1,5 @@
 const { Product } = require("../models");
+const formidable = require("formidable");
 
 // Display a listing of the resource.
 async function index(req, res) {
@@ -39,32 +40,46 @@ async function create(req, res) {
 // Show the form for editing the specified resource.
 async function edit(req, res) {
   const productSlug = req.params.slug;
-  let newBrand = req.body.brand;
-  let newModel = req.body.model;
-  let newSlug = req.body.slug;
-  let newImage = req.body.image;
-  let newHighlight = req.body.highlight;
-  let newPrice = req.body.price;
-  let newStock = req.body.stock;
-  let newSubtitle = req.body.subtitle;
-  let newDescription = req.body.description;
-  const product = await Product.findOneAndUpdate(
-    { where: { slug: productSlug } },
-    {
-      brand: newBrand,
-      model: newModel,
-      slug: newSlug,
-      image: newImage,
-      highlight: newHighlight,
-      price: newPrice,
-      stock: newStock,
-      subtitle: newSubtitle,
-      description: newDescription,
-    },
-
-    { returnOriginal: false }
-  );
-  res.json(product);
+  const form = formidable({
+    uploadDir: __dirname + "/../public/img",
+    keepExtensions: true,
+    multiples: true,
+  });
+  form.parse(req, async (err, fields, files) => {
+    if (files.image) {
+      await Product.findOneAndUpdate(
+        { where: { slug: productSlug } },
+        {
+          brand: fields.brand,
+          model: fields.model,
+          slug: fields.slug,
+          image: files.image,
+          highlight: fields.highlight,
+          price: fields.price,
+          stock: fields.stock,
+          subtitle: fields.subtitle,
+          description: fields.description,
+        },
+        { returnOriginal: false }
+      );
+    } else {
+      await Product.findOneAndUpdate(
+        { where: { slug: productSlug } },
+        {
+          brand: fields.brand,
+          model: fields.model,
+          slug: fields.slug,
+          highlight: fields.highlight,
+          price: fields.price,
+          stock: fields.stock,
+          subtitle: fields.subtitle,
+          description: fields.description,
+        },
+        { returnOriginal: false }
+      );
+    }
+    res.json("Todo Ok");
+  })
 }
 
 async function updateStock(req, res) {

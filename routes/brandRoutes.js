@@ -3,6 +3,9 @@ const router = express.Router();
 const { expressjwt: checkJwt } = require("express-jwt");
 const brandController = require("../controllers/brandController");
 
+router.get("/", brandController.index);
+router.get("/:id", brandController.show);
+
 router.use(
   checkJwt({
     secret: process.env.SESSION_SECRET,
@@ -10,9 +13,8 @@ router.use(
   })
 );
 
-router.get("/", brandController.index);
+
 router.post("/", brandController.create);
-router.get("/:id", brandController.show);
 router.patch("/:id", brandController.edit);
 router.delete("/:id", brandController.destroy);
 

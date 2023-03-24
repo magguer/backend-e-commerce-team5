@@ -9,6 +9,9 @@ const brandSchema = new Schema(
     slug: {
       type: String,
     },
+    logo: {
+      type: String
+    },
     products: [
       {
         type: Schema.Types.ObjectId,

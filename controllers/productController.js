@@ -1,5 +1,4 @@
-const { Product, Category } = require("../models");
-const Brand = require("../models/Brand");
+const { Product, Category, Brand } = require("../models");
 const formidable = require("formidable");
 
 // Display a listing of the resource.
@@ -42,21 +41,21 @@ async function create(req, res) {
   res.json(newProduct);
 }
 
-// Show the form for editing the specified resource.
+// Patch Product
 async function edit(req, res) {
-  console.log(req.body.brand);
-  const productSlug = req.params.slug;
   const form = formidable({
     uploadDir: __dirname + "/../public/img",
     keepExtensions: true,
     multiples: true,
   });
   form.parse(req, async (err, fields, files) => {
+
+    const brand = await Brand.findOne({ name: fields.brand })
     if (files.image) {
-      await Product.findOneAndUpdate(
-        { where: { slug: productSlug } },
+      await Product.findByIdAndUpdate(
+        fields.product,
         {
-          brand: fields.brand,
+          brand: brand._id,
           model: fields.model,
           slug: fields.slug,
           image: files.image,
@@ -69,10 +68,10 @@ async function edit(req, res) {
         { returnOriginal: false }
       );
     } else {
-      await Product.findOneAndUpdate(
-        { where: { slug: productSlug } },
+      await Product.findByIdAndUpdate(
+        fields.product,
         {
-          brand: fields.brand,
+          brand: brand._id,
           model: fields.model,
           slug: fields.slug,
           highlight: fields.highlight,

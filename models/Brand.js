@@ -6,6 +6,9 @@ const brandSchema = new Schema(
       type: String,
       require: true,
     },
+    slug: {
+      type: String,
+    },
     products: [
       {
         type: Schema.Types.ObjectId,

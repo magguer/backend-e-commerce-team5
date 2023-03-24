@@ -4,7 +4,7 @@ const formidable = require("formidable");
 
 // Display a listing of the resource.
 async function index(req, res) {
-  const products = await Product.find();
+  const products = await Product.find().populate("brand");
   res.json(products);
 }
 
@@ -38,11 +38,13 @@ async function create(req, res) {
   brand.products.push(newProduct._id)
   category.products.push(newProduct._id)
   brand.save()
+  category.save()
   res.json(newProduct);
 }
 
 // Show the form for editing the specified resource.
 async function edit(req, res) {
+  console.log(req.body.brand);
   const productSlug = req.params.slug;
   const form = formidable({
     uploadDir: __dirname + "/../public/img",

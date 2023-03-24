@@ -13,7 +13,7 @@ router.use(
   })
 );
 
-router.post("/create", productController.create);
+router.post("/", productController.create);
 router.patch("/:slug/edit", productController.edit);
 router.patch("/:slug/update-stock", productController.updateStock);
 router.delete("/:id", productController.destroy);

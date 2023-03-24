@@ -1,4 +1,5 @@
-const { Product } = require("../models");
+const { Product,Category } = require("../models");
+const Brand = require("../models/Brand");
 
 // Display a listing of the resource.
 async function index(req, res) {
@@ -10,7 +11,6 @@ async function index(req, res) {
 async function show(req, res) {
   const productSlug = req.params.slug;
   const product = await Product.findOne({ slug: productSlug });
-  console.log(productSlug);
   res.json(product);
 }
 
@@ -18,21 +18,24 @@ async function show(req, res) {
 async function create(req, res) {
   function createSlug(model) {
     const slug = model.split(" ").join("-").toLowerCase();
-
     return slug;
   }
-  console.log(createSlug);
+  const brand = await Brand.findOne({name:req.body.brand})
+  const category = await Category.findOne({name:req.body.category})
   const newProduct = await Product.create({
-    brand: req.body.brand,
+    brand: brand._id,
     model: req.body.model,
     slug: createSlug(req.body.model),
     image: [req.body.image],
+    category: category._id,
     highlight: req.body.highlight,
     price: req.body.price,
     stock: req.body.stock,
     subtitle: req.body.subtitle,
     description: req.body.description,
   });
+  brand.products.push(newProduct._id)
+  brand.save()
   res.json(newProduct);
 }
 

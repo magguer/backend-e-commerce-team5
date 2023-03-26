@@ -10,7 +10,7 @@ async function index(req, res) {
 // Display the specified resource.
 async function show(req, res) {
   const productSlug = req.params.slug;
-  const product = await Product.findOne({ slug: productSlug });
+  const product = await Product.findOne({ slug: productSlug }).populate("brand").populate("category");
   res.json(product);
 }
 
@@ -34,13 +34,13 @@ async function create(req, res) {
         brand: brand._id,
         model: fields.model,
         slug: fields.slug,
-        image: [files.image1.newFilename,files.image2.newFilename],
+        image: [files.image1.newFilename, files.image2.newFilename],
         highlight: fields.highlight,
         price: fields.price,
         stock: fields.stock,
         subtitle: fields.subtitle,
         description: fields.description,
-        category:"641e002fad73e0e0a7abdfbb"
+        category: "641e002fad73e0e0a7abdfbb"
       },
       { returnOriginal: false }
     );

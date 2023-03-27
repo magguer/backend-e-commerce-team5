@@ -5,7 +5,7 @@ const slugify = require("slugify");
 
 faker.locale = "es";
 
-let ArrayCategories = ["Electric", "Acoustic", "Bass", "Audio Pro"];
+let ArrayCategories = ["Electric", "Acoustic", "Bass", "AudioPro"];
 
 const numbers = [1, 2, 3, 4];
 

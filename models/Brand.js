@@ -12,6 +12,9 @@ const brandSchema = new Schema(
     logo: {
       type: String
     },
+    logo2: {
+      type: String
+    },
     products: [
       {
         type: Schema.Types.ObjectId,

@@ -5,7 +5,7 @@ const slugify = require("slugify");
 
 faker.locale = "es";
 
-let ArrayCategories = ["Electric", "Acoustic", "Bass", "AudioPro"];
+let ArrayCategories = [{name:"Electric",slug:'electric'}, {name:"Acoustic",slug:'acoustic'}, {name:"Bass",slug:'bass'},{name: "AudioPro",slug:'audiopro'}];
 
 const numbers = [1, 2, 3, 4];
 
@@ -13,9 +13,10 @@ module.exports = async () => {
   const categories = [];
   for (let i = 0; i < ArrayCategories.length; i++) {
     const category = new Category({
-      name: ArrayCategories[i],
+      name: ArrayCategories[i].name,
       number: numbers[i],
       products: [],
+      slug: ArrayCategories[i].slug
     });
     categories.push(category);
   }

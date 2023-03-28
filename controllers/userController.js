@@ -22,7 +22,7 @@ async function create(req, res) {
     lastname: bodyData.lastname,
     password: await bcrypt.hash(`${bodyData.password}`, 8),
     email: bodyData.email,
-    address: bodyData.address,
+    addresses: bodyData.addresses,
   });
   res.json(newUser);
 }
@@ -38,7 +38,7 @@ async function edit(req, res) {
       lastname: bodyData.lastname,
       password: await bcrypt.hash(`${bodyData.password}`, 8),
       email: bodyData.email,
-      address: bodyData.address,
+      addresses: bodyData.addresses,
     },
     { returnOriginal: false }
   );
@@ -70,7 +70,7 @@ async function createToken(req, res) {
           firstname: user.firstname,
           lastname: user.lastname,
           email: user.email,
-          address: user.address,
+          addresses: user.addresses,
           orders: user.orders,
           token: token,
         },

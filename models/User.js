@@ -27,9 +27,9 @@ const userSchema = new Schema(
       required: [true, "Inserte un email."],
       unique: true,
     },
-    address: [
+    addresses: [
       {
-        type: String,
+        type: Object,
       },
     ],
     orders: [

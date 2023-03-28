@@ -20,6 +20,14 @@ module.exports = async () => {
         lower: true,
         locale: "en",
       }),
+      addresses: {
+        street: "Fake Street 123",
+        reference: "orange house with pink car outside",
+        city: "Springfield",
+        state: "Oregon",
+        zipCode: "65619",
+        country: "USA",
+      },
     });
     users.push(user);
   }

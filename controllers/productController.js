@@ -82,7 +82,7 @@ async function edit(req, res) {
         { returnOriginal: false }
       );
       brand.products.push(product);
-      brand.save();
+      await brand.save();
     } else {
       const product = await Product.findByIdAndUpdate(
         fields.product,
@@ -99,7 +99,7 @@ async function edit(req, res) {
         { returnOriginal: false }
       );
       brand.products.push(product);
-      brand.save();
+      await brand.save();
     }
     res.json("Todo Ok");
   });

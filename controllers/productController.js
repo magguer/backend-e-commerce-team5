@@ -1,33 +1,32 @@
 const { Product, Category, Brand } = require("../models");
 const formidable = require("formidable");
+const { model } = require("mongoose");
 
 // Display a listing of the resource.
 async function index(req, res) {
-  const products = await Product.find().populate("brand");
+  const products = await Product.find().populate("brand").populate("category");
   res.json(products);
 }
 
 // Display the specified resource.
 async function show(req, res) {
   const productSlug = req.params.slug;
-  const product = await Product.findOne({ slug: productSlug }).populate("brand").populate("category");
+  const product = await Product.findOne({ slug: productSlug })
+    .populate("brand")
+    .populate("category");
   res.json(product);
 }
 
 // Show the form for creating a new resource
 async function create(req, res) {
-  function createSlug(model) {
-    const slug = model.split(" ").join("-").toLowerCase();
-    return slug;
-  }
   const form = formidable({
     uploadDir: __dirname + "/../public/img",
     keepExtensions: true,
     multiples: true,
   });
   form.parse(req, async (err, fields, files) => {
-    console.log(files)
-    const brand = await Brand.findOne({ name: fields.brand })
+    console.log(files);
+    const brand = await Brand.findOne({ name: fields.brand });
     const category = await Category.findOne({ name: fields.category });
     const newProduct = await Product.create(
       {
@@ -40,7 +39,7 @@ async function create(req, res) {
         stock: fields.stock,
         subtitle: fields.subtitle,
         description: fields.description,
-        category: "641e002fad73e0e0a7abdfbb"
+        category: "641e002fad73e0e0a7abdfbb",
       },
       { returnOriginal: false }
     );
@@ -50,7 +49,6 @@ async function create(req, res) {
     category.save();
     res.json(newProduct);
   });
-
 }
 
 // Patch Product
@@ -61,9 +59,12 @@ async function edit(req, res) {
     multiples: true,
   });
   form.parse(req, async (err, fields, files) => {
-    const brand = await Brand.findOne({ name: fields.brand })
-    const product = await Product.findById(fields.product)
-    await Brand.findOneAndUpdate({ name: fields.oldBrand }, { $pull: { products: product._id } })
+    const brand = await Brand.findOne({ name: fields.brand });
+    const product = await Product.findById(fields.product);
+    await Brand.findOneAndUpdate(
+      { name: fields.oldBrand },
+      { $pull: { products: product._id } }
+    );
     if (files.image) {
       const product = await Product.findByIdAndUpdate(
         fields.product,
@@ -80,8 +81,8 @@ async function edit(req, res) {
         },
         { returnOriginal: false }
       );
-      brand.products.push(product)
-      brand.save()
+      brand.products.push(product);
+      brand.save();
     } else {
       const product = await Product.findByIdAndUpdate(
         fields.product,
@@ -97,8 +98,8 @@ async function edit(req, res) {
         },
         { returnOriginal: false }
       );
-      brand.products.push(product)
-      brand.save()
+      brand.products.push(product);
+      brand.save();
     }
     res.json("Todo Ok");
   });
@@ -125,6 +126,40 @@ async function destroy(req, res) {
   res.json({ message: "The Product was deleted", productDeleted: product });
 }
 
+async function searchProduct(req, res) {
+  function slug(model) {
+    const slug = model.split(" ").join("-").toLowerCase();
+    return slug;
+  }
+  const slugProduct = slug(req.body.searchValue);
+  const products = await Product.find().populate("brand");
+  const searchProducts = products.filter(
+    (product) => product.slug.includes(slugProduct) === true
+  );
+
+  res.json(searchProducts);
+}
+
+async function filterProduct(req, res) {
+  const products = await Product.find().populate("brand").populate("category");
+  if (req.body.brand) {
+    const productsByBrand = products.filter(
+      (product) => product.brand.name === req.body.brand
+    );
+    console.log(req.body.brand);
+    return res.json(productsByBrand);
+  }
+
+  if (req.body.category) {
+    const productsByCategory = products.filter(
+      (product) => product.category.name === req.body.category
+    );
+    return res.json(productsByCategory);
+  }
+
+  res.json(products);
+}
+
 module.exports = {
   index,
   show,
@@ -132,4 +167,6 @@ module.exports = {
   updateStock,
   edit,
   destroy,
+  searchProduct,
+  filterProduct,
 };

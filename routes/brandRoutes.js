@@ -4,7 +4,7 @@ const { expressjwt: checkJwt } = require("express-jwt");
 const brandController = require("../controllers/brandController");
 
 router.get("/", brandController.index);
-router.get("/:id", brandController.show);
+router.get("/:slug", brandController.show);
 
 router.use(
   checkJwt({
@@ -12,7 +12,6 @@ router.use(
     algorithms: ["HS256"],
   })
 );
-
 
 router.post("/", brandController.create);
 router.patch("/:id", brandController.edit);

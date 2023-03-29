@@ -9,8 +9,11 @@ async function index(req, res) {
 
 // Display the specified resource.
 async function show(req, res) {
-  const brandId = req.params.id;
-  const brand = await Brand.findById(brandId);
+  const brandSlug = req.params.slug;
+  const brand = await Brand.find({ slug: brandSlug }).populate({
+    path: "products",
+    populate: "category",
+  });
   res.json(brand);
 }
 
@@ -29,17 +32,17 @@ async function create(req, res) {
         replacement: "-",
         lower: true,
         locale: "en",
-      })
-    })
+      }),
+    });
   });
   res.json("Todo OK.");
 }
 
 // Show the form for editing the specified resource.
-async function edit(req, res) { }
+async function edit(req, res) {}
 
 // Update the specified resource in storage.
-async function update(req, res) { }
+async function update(req, res) {}
 
 // Remove the specified resource from storage.
 async function destroy(req, res) {

@@ -9,7 +9,6 @@ const billRoutes = require("./billRoutes");
 
 module.exports = (app) => {
   app.use("/categories", categoryRoutes);
-
   app.use("/admin", adminRoutes);
   app.use("/status", statusRoutes);
   app.use("/brands", brandRoutes);

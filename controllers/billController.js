@@ -1,25 +1,22 @@
-const { Order } = require("../models");
+const { Bill } = require("../models");
 
 // Display a listing of the resource.
 async function index(req, res) {
-  const orders = await Order.find();
-  res.json(orders);
+  const bills = await Bill.find();
+  res.json(bills);
 }
 
-async function lastOrders(req, res) {
-  const orders = await Order.find()
-    .sort({ $natural: -1 })
-    .limit(10)
-    .populate("user")
-    .populate("status");
-  res.json(orders);
+async function lastBills(req, res) {
+  const bills = await Bill.find().sort({ $natural: -1 }).limit(10);
+
+  res.json(bills);
 }
 
 // Display the specified resource.
 async function show(req, res) {
-  const orderId = req.params.id;
-  const order = await Order.findById(orderId);
-  res.json(order);
+  const billId = req.params.id;
+  const bill = await Bill.findById(billId);
+  res.json(bill);
 }
 
 // Show the form for creating a new resource
@@ -27,16 +24,23 @@ async function create(req, res) {}
 
 // Store a newly created resource in storage.
 async function store(req, res) {
-  console.log({ post: req.body });
   const bodyData = req.body;
-  const order = await Order.create({
-    status: bodyData.status,
-    user: bodyData.user,
+  const bill = await Bill.create({
+    user: req.auth.userId,
+    firstname: bodyData.firstname,
+    lastname: bodyData.lastname,
+    email: bodyData.email,
+    phoneNumber: bodyData.phoneNumber,
     products: bodyData.products,
     details: bodyData.details,
     totalPrice: bodyData.totalPrice,
+    streetAddres: bodyData.streetAddres,
+    reference: bodyData.reference,
+    city: bodyData.city,
+    country: bodyData.country,
+    province: bodyData.province,
   });
-  res.json(order);
+  res.json(bill);
 }
 
 // Show the form for editing the specified resource.
@@ -50,7 +54,7 @@ async function destroy(req, res) {}
 
 module.exports = {
   index,
-  lastOrders,
+  lastBills,
   show,
   create,
   store,

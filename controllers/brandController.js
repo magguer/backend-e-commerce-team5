@@ -10,10 +10,8 @@ async function index(req, res) {
 // Display the specified resource.
 async function show(req, res) {
   const brandSlug = req.params.slug;
-  const brand = await Brand.find({ slug: brandSlug }).populate({
-    path: "products",
-    populate: "category",
-  });
+  const brand = await Brand.find({ slug: brandSlug }).populate("products");
+
   res.json(brand);
 }
 

@@ -3,7 +3,7 @@ const { Order, Status, User, Product } = require("../models");
 
 module.exports = async () => {
 
-  const status = await Status.findOne({ name: "Prossesing" });
+  const status = await Status.findOne({ name: "Processing" });
   const users = await User.find()
   const products = await Product.find()
   const orders = []

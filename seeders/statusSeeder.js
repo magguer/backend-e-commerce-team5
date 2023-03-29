@@ -1,6 +1,6 @@
 const { Status } = require("../models");
 
-let ArrayStatus = ["Prossesing", "Send", "Delivered"];
+let ArrayStatus = ["Processing", "Send", "Delivered"];
 
 const numbers = [1, 2, 3];
 module.exports = async () => {

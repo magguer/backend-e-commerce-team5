@@ -10,7 +10,7 @@ async function index(req, res) {
 // Display the specified resource.
 async function show(req, res) {
   const userId = req.params.id;
-  const user = await User.findById(userId);
+  const user = await User.findById(userId).populate("orders");
   res.json(user);
 }
 
@@ -56,7 +56,7 @@ async function destroy(req, res) {
 
 async function createToken(req, res) {
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.email }).populate({ path: 'orders', populate: 'status' });
     const matchPassword = await bcrypt.compare(
       req.body.password,
       user.password

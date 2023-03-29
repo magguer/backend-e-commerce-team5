@@ -4,7 +4,7 @@ const { model } = require("mongoose");
 
 // Display a listing of the resource.
 async function index(req, res) {
-  const products = await Product.find().populate("brand").populate("category");
+  const products = await Product.find({ highlight: true }).populate("brand").populate("category")
   res.json(products);
 }
 

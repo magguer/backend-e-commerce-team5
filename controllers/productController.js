@@ -25,7 +25,6 @@ async function create(req, res) {
     multiples: true,
   });
   form.parse(req, async (err, fields, files) => {
-    console.log(files);
     const brand = await Brand.findOne({ name: fields.brand });
     const category = await Category.findOne({ name: fields.category });
     const newProduct = await Product.create(
@@ -146,7 +145,6 @@ async function filterProduct(req, res) {
     const productsByBrand = products.filter(
       (product) => product.brand.name === req.body.brand
     );
-    console.log(req.body.brand);
     return res.json(productsByBrand);
   }
 

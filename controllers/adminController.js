@@ -6,7 +6,6 @@ const jwt = require("jsonwebtoken");
 // Index Admin
 async function index(req, res) {
   const admins = await Admin.find();
-  console.log(req.auth);
   res.json(admins);
 }
 
@@ -67,7 +66,6 @@ async function createToken(req, res) {
   const categories = await Category.find({ name: "Electric" }).populate(
     "products"
   );
-  console.log(categories);
   try {
     const admin = await Admin.findOne({ email: req.body.email });
 

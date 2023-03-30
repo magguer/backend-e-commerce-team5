@@ -16,6 +16,7 @@ router.use(
 
 router.get("/", userController.index);
 router.get("/:id", userController.show);
+router.post("/search", userController.searchUser);
 router.patch("/:id/edit", userController.edit);
 router.delete("/:id", userController.destroy);
 

@@ -57,6 +57,16 @@ async function destroy(req, res) {
   });
 }
 
+async function searchBrand(req, res) {
+  const brandName = slugify(req.body.searchBrand).toLowerCase();
+  const brands = await Brand.find();
+  const searchBrands = brands.filter(
+    (brand) => slugify(brand.slug).toLowerCase().includes(brandName) === true
+  );
+
+  res.json(searchBrands);
+}
+
 module.exports = {
   index,
   show,
@@ -64,4 +74,5 @@ module.exports = {
   edit,
   update,
   destroy,
+  searchBrand,
 };

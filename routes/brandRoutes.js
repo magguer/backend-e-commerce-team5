@@ -14,6 +14,7 @@ router.use(
 );
 
 router.post("/", brandController.create);
+router.post("/search", brandController.searchBrand);
 router.patch("/:id", brandController.edit);
 router.delete("/:id", brandController.destroy);
 

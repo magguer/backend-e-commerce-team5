@@ -7,6 +7,45 @@ async function index(req, res) {
   res.json(users);
 }
 
+
+//// create token
+
+async function createToken(req, res) {
+  try {
+    const user = await User.findOne({ email: req.body.email }).populate({
+      path: "orders",
+      populate: "status",
+    });
+    const matchPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+
+    if (matchPassword) {
+      const token = jwt.sign({ userId: user.id }, process.env.SESSION_SECRET);
+      res.json({
+        user: {
+          id: user._id,
+          firstname: user.firstname,
+          lastname: user.lastname,
+          email: user.email,
+          addresses: user.addresses,
+          orders: user.orders,
+          token: token,
+        },
+      });
+    } else res.json("No existe este usuario");
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "User login failed",
+      error: err.message,
+    });
+  }
+}
+
+
+
 // Display the specified resource.
 async function show(req, res) {
   const userId = req.params.id;
@@ -17,14 +56,35 @@ async function show(req, res) {
 // Show the form for creating a new resource
 async function create(req, res) {
   const bodyData = req.body;
-  const newUser = await User.create({
-    firstname: bodyData.firstname,
-    lastname: bodyData.lastname,
-    password: await bcrypt.hash(`${bodyData.password}`, 8),
-    email: bodyData.email,
-    addresses: bodyData.addresses,
-  });
-  res.json(newUser);
+  if (bodyData.googleId) {
+    console.log("entro");
+    const newUser = await User.create({
+      firstname: bodyData.givenName,
+      lastname: bodyData.familyName,
+      email: bodyData.email,
+    });
+    const token = jwt.sign({ userId: newUser.id }, process.env.SESSION_SECRET);
+    res.json({
+      user: {
+        id: newUser._id,
+        firstname: newUser.firstname,
+        lastname: newUser.lastname,
+        email: newUser.email,
+        addresses: newUser.addresses,
+        orders: newUser.orders,
+        token: token,
+      }})
+  } else {
+    console.log("no entro");
+    const newUser = await User.create({
+      firstname: bodyData.firstname,
+      lastname: bodyData.lastname,
+      password: await bcrypt.hash(`${bodyData.password}`, 8),
+      email: bodyData.email,
+      addresses: bodyData.addresses,
+    });
+    res.json(newUser);
+  }
 }
 
 // Show the form for editing the specified resource.
@@ -52,38 +112,7 @@ async function destroy(req, res) {
   res.json({ message: "The User was deleted", userDeleted: user });
 }
 
-//// create token
 
-async function createToken(req, res) {
-  try {
-    const user = await User.findOne({ email: req.body.email }).populate({ path: 'orders', populate: 'status' });
-    const matchPassword = await bcrypt.compare(
-      req.body.password,
-      user.password
-    );
-
-    if (user) {
-      const token = jwt.sign({ userId: user.id }, process.env.SESSION_SECRET);
-      res.json({
-        user: {
-          id: user._id,
-          firstname: user.firstname,
-          lastname: user.lastname,
-          email: user.email,
-          addresses: user.addresses,
-          orders: user.orders,
-          token: token,
-        },
-      });
-    } else res.json("No existe este usuario");
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: "User login failed",
-      error: err.message,
-    });
-  }
-}
 
 module.exports = {
   index,

@@ -5,7 +5,7 @@ const { expressjwt: checkJwt } = require("express-jwt");
 const userController = require("../controllers/userController");
 
 router.post("/token", userController.createToken);
-router.post("/create", userController.create);
+router.post("/", userController.create);
 
 router.use(
   checkJwt({

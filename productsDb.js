@@ -984,10 +984,10 @@ const products = [
       "https://images.ctfassets.net/m8onsx4mm13s/0RDvEauqdKJ1C07zG1yU7R/d06f5f47cf03c976be375fe1d0a34246/__static.gibson.com_product-images_USA_USA7EU389_Inverness_Green_hardware-500_500.png?h=1080",
       "https://images.ctfassets.net/m8onsx4mm13s/2I1h5dTlqaVaY0HJrMpvKR/bd753d0ebdde791179dc83013581a38c/__static.gibson.com_product-images_USA_USA7EU389_Inverness_Green_neck-side-500_500.png?h=1080",
     ],
-    highlight: false,
+    highlight: true,
     price: 2199,
     stock: 15,
-    category: "true",
+    category: "Bass",
     subtitle: "Always Moving Forward",
     description:
       "Ever since it was first released back in 1965, the Non-Reverse Thunderbird has been THE choice for forward-looking bassists who want to make their own path and steadfastly refuse to follow the crowd. The Non-Reverse Thunderbird's distinctive styling and huge, thunderous tone make it a standout on stage and in the studio. Now you have the opportunity to make one of these relatively rare 'birds your own with the release of the new Gibson USA Non-Reverse Thunderbird. Equipped with a Non-Reverse mahogany body and mahogany neck with a rosewood fretboard and 20 medium jumbo frets, each of the two Thunderbird pickups has a volume control, allowing you to use them separately, or to blend them in any amount you prefer. A master tone control rounds out the simple yet highly effective cont . . .",

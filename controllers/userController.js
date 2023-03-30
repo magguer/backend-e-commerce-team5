@@ -58,6 +58,8 @@ async function show(req, res) {
 // Show the form for creating a new resource
 async function create(req, res) {
   const bodyData = req.body;
+  console.log(bodyData)
+  try{
   if (bodyData.googleId) {
     console.log("entro");
     const newUser = await User.create({
@@ -87,6 +89,9 @@ async function create(req, res) {
     });
     res.json(newUser);
   }
+} catch{
+  console.log('error')
+}
 }
 
 // Show the form for editing the specified resource.

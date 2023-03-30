@@ -1,6 +1,8 @@
 const { User } = require("../models");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const slugify = require("slugify");
+
 // Display a listing of the resource.
 async function index(req, res) {
   const users = await User.find();
@@ -114,6 +116,18 @@ async function destroy(req, res) {
 
 
 
+async function searchUser(req, res) {
+  const userName = slugify(req.body.searchValue).toLowerCase();
+  const users = await User.find();
+  const searchUser = users.filter(
+    (user) =>
+      slugify(user.firstname).toLowerCase().includes(userName) === true ||
+      slugify(user.lastname).toLowerCase().includes(userName) === true
+  );
+
+  res.json(searchUser);
+}
+
 module.exports = {
   index,
   show,
@@ -121,4 +135,5 @@ module.exports = {
   edit,
   destroy,
   createToken,
+  searchUser,
 };

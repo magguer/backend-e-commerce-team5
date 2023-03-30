@@ -1,5 +1,6 @@
 const { default: slugify } = require("slugify");
 const { Brand } = require("../models");
+const { Product } = require("../models");
 
 // Display a listing of users
 async function index(req, res) {
@@ -10,9 +11,13 @@ async function index(req, res) {
 // Display the specified resource.
 async function show(req, res) {
   const brandSlug = req.params.slug;
-  const brand = await Brand.find({ slug: brandSlug }).populate("products");
+  const brand = await Brand.findOne({ slug: brandSlug });
+  const products = await Product.find().populate("brand");
+  const productByBrand = products.filter(
+    (product) => product.brand.slug === brand.slug
+  );
 
-  res.json(brand);
+  res.json(productByBrand);
 }
 
 // Post Brand

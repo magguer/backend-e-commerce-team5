@@ -1,4 +1,4 @@
-const { Order } = require("../models");
+const { Order, Status, User } = require("../models");
 
 // Display a listing of the resource.
 async function index(req, res) {
@@ -12,6 +12,7 @@ async function lastOrders(req, res) {
     .limit(10)
     .populate("user")
     .populate("status");
+  /*   console.log(orders); */
   res.json(orders);
 }
 
@@ -27,15 +28,18 @@ async function create(req, res) { }
 
 // Store a newly created resource in storage.
 async function store(req, res) {
-  console.log({ post: req.body });
+  const status = await Status.findOne({ name: "Processing" });
+  const user = await User.findById(req.auth.userId);
   const bodyData = req.body;
   const order = await Order.create({
-    status: bodyData.status,
-    user: bodyData.user,
+    status: status,
+    user: user,
     products: bodyData.products,
     details: bodyData.details,
     totalPrice: bodyData.totalPrice,
   });
+  user.orders.push(order._id)
+  user.save();
   res.json(order);
 }
 

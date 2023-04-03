@@ -9,9 +9,7 @@ async function index(req, res) {
   res.json(users);
 }
 
-
 //// create token
-
 async function createToken(req, res) {
   try {
     const user = await User.findOne({ email: req.body.email }).populate({
@@ -24,7 +22,7 @@ async function createToken(req, res) {
     );
 
     if (matchPassword) {
-      const token = jwt.sign({ userId: user.id }, process.env.SESSION_SECRET);
+      const token = jwt.sign({ userId: user._id }, process.env.SESSION_SECRET);
       res.json({
         user: {
           id: user._id,
@@ -46,12 +44,10 @@ async function createToken(req, res) {
   }
 }
 
-
-
 // Display the specified resource.
 async function show(req, res) {
   const userId = req.params.id;
-  const user = await User.findById(userId).populate("orders");
+  const user = await User.findById(userId).populate({ path: "orders", populate: "status" });
   res.json(user);
 }
 
@@ -59,39 +55,40 @@ async function show(req, res) {
 async function create(req, res) {
   const bodyData = req.body;
   console.log(bodyData)
-  try{
-  if (bodyData.googleId) {
-    console.log("entro");
-    const newUser = await User.create({
-      firstname: bodyData.givenName,
-      lastname: bodyData.familyName,
-      email: bodyData.email,
-    });
-    const token = jwt.sign({ userId: newUser.id }, process.env.SESSION_SECRET);
-    res.json({
-      user: {
-        id: newUser._id,
-        firstname: newUser.firstname,
-        lastname: newUser.lastname,
-        email: newUser.email,
-        addresses: newUser.addresses,
-        orders: newUser.orders,
-        token: token,
-      }})
-  } else {
-    console.log("no entro");
-    const newUser = await User.create({
-      firstname: bodyData.firstname,
-      lastname: bodyData.lastname,
-      password: await bcrypt.hash(`${bodyData.password}`, 8),
-      email: bodyData.email,
-      addresses: bodyData.addresses,
-    });
-    res.json(newUser);
+  try {
+    if (bodyData.googleId) {
+      console.log("entro");
+      const newUser = await User.create({
+        firstname: bodyData.givenName,
+        lastname: bodyData.familyName,
+        email: bodyData.email,
+      });
+      const token = jwt.sign({ userId: newUser.id }, process.env.SESSION_SECRET);
+      res.json({
+        user: {
+          id: newUser._id,
+          firstname: newUser.firstname,
+          lastname: newUser.lastname,
+          email: newUser.email,
+          addresses: newUser.addresses,
+          orders: newUser.orders,
+          token: token,
+        }
+      })
+    } else {
+      console.log("no entro");
+      const newUser = await User.create({
+        firstname: bodyData.firstname,
+        lastname: bodyData.lastname,
+        password: await bcrypt.hash(`${bodyData.password}`, 8),
+        email: bodyData.email,
+        addresses: bodyData.addresses,
+      });
+      res.json(newUser);
+    }
+  } catch {
+    console.log('error')
   }
-} catch{
-  console.log('error')
-}
 }
 
 // Show the form for editing the specified resource.
@@ -118,8 +115,6 @@ async function destroy(req, res) {
   const user = await User.findByIdAndDelete(userId);
   res.json({ message: "The User was deleted", userDeleted: user });
 }
-
-
 
 async function searchUser(req, res) {
   const userName = slugify(req.body.searchValue).toLowerCase();

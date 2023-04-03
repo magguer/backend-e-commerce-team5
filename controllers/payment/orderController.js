@@ -2,7 +2,7 @@ const { Order } = require("../../models");
 
 // Display a listing of the resource.
 async function index(req, res) {
-  const orders = await Order.find().populate("user");
+  const orders = await Order.find();
   res.json(orders);
 }
 
@@ -22,6 +22,12 @@ async function show(req, res) {
   res.json(order);
 }
 
+<<<<<<< HEAD:controllers/payment/orderController.js
+=======
+// Show the form for creating a new resource
+async function create(req, res) {}
+
+>>>>>>> parent of 5180743 (order-populated):controllers/orderController.js
 // Store a newly created resource in storage.
 async function store(req, res) {
   console.log({ post: req.body });
@@ -36,11 +42,17 @@ async function store(req, res) {
   res.json(order);
 }
 
+<<<<<<< HEAD:controllers/payment/orderController.js
+=======
+// Show the form for editing the specified resource.
+async function edit(req, res) {}
+
+>>>>>>> parent of 5180743 (order-populated):controllers/orderController.js
 // Update the specified resource in storage.
-async function update(req, res) { }
+async function update(req, res) {}
 
 // Remove the specified resource from storage.
-async function destroy(req, res) { }
+async function destroy(req, res) {}
 
 module.exports = {
   index,

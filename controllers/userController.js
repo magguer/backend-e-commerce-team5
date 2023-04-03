@@ -47,48 +47,74 @@ async function createToken(req, res) {
 // Display the specified resource.
 async function show(req, res) {
   const userId = req.params.id;
-  const user = await User.findById(userId).populate({ path: "orders", populate: "status" });
+  const user = await User.findById(userId).populate({
+    path: "orders",
+    populate: "status",
+  });
   res.json(user);
 }
 
 // Show the form for creating a new resource
+// async function create(req, res) {
+//   const bodyData = req.body;
+//   console.log(bodyData)
+//   try {
+//     if (bodyData.googleId) {
+//       console.log("entro");
+//       const newUser = await User.create({
+//         firstname: bodyData.givenName,
+//         lastname: bodyData.familyName,
+//         email: bodyData.email,
+//       });
+//       const token = jwt.sign({ userId: newUser.id }, process.env.SESSION_SECRET);
+//       res.json({
+//         user: {
+//           id: newUser._id,
+//           firstname: newUser.firstname,
+//           lastname: newUser.lastname,
+//           email: newUser.email,
+//           addresses: newUser.addresses,
+//           orders: newUser.orders,
+//           token: token,
+//         }
+//       })
+//     } else {
+//       console.log("no entro");
+//       const newUser = await User.create({
+//         firstname: bodyData.firstname,
+//         lastname: bodyData.lastname,
+//         password: await bcrypt.hash(`${bodyData.password}`, 8),
+//         email: bodyData.email,
+//         addresses: bodyData.addresses,
+//       });
+//       res.json(newUser);
+//     }
+//   } catch {
+//     console.log('error')
+//   }
+// }
+
 async function create(req, res) {
   const bodyData = req.body;
-  console.log(bodyData)
-  try {
-    if (bodyData.googleId) {
-      console.log("entro");
-      const newUser = await User.create({
-        firstname: bodyData.givenName,
-        lastname: bodyData.familyName,
-        email: bodyData.email,
-      });
-      const token = jwt.sign({ userId: newUser.id }, process.env.SESSION_SECRET);
-      res.json({
-        user: {
-          id: newUser._id,
-          firstname: newUser.firstname,
-          lastname: newUser.lastname,
-          email: newUser.email,
-          addresses: newUser.addresses,
-          orders: newUser.orders,
-          token: token,
-        }
-      })
-    } else {
-      console.log("no entro");
-      const newUser = await User.create({
-        firstname: bodyData.firstname,
-        lastname: bodyData.lastname,
-        password: await bcrypt.hash(`${bodyData.password}`, 8),
-        email: bodyData.email,
-        addresses: bodyData.addresses,
-      });
-      res.json(newUser);
-    }
-  } catch {
-    console.log('error')
-  }
+  const newUser = await User.create({
+    firstname: bodyData.firstname,
+    lastname: bodyData.lastname,
+    email: bodyData.email,
+    password: await bcrypt.hash(`${bodyData.password}`, 8),
+  });
+  const token = jwt.sign({ userId: newUser.id }, process.env.SESSION_SECRET);
+  res.json({
+    user: {
+      id: newUser._id,
+      firstname: newUser.firstname,
+      lastname: newUser.lastname,
+      email: newUser.email,
+      password: bodyData.password,
+      addresses: newUser.addresses,
+      orders: newUser.orders,
+      token: token,
+    },
+  });
 }
 
 // Show the form for editing the specified resource.

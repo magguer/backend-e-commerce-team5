@@ -26,11 +26,10 @@ const userSchema = new Schema(
       required: [true, "Inserte un email."],
       unique: true,
     },
-    addresses: [
-      {
-        type: Object,
-      },
-    ],
+    address: {
+      type: Object,
+    },
+
     orders: [
       {
         type: Schema.Types.ObjectId,

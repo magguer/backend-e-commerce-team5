@@ -29,7 +29,7 @@ async function createToken(req, res) {
           firstname: user.firstname,
           lastname: user.lastname,
           email: user.email,
-          addresses: user.addresses,
+          address: user.address,
           orders: user.orders,
           token: token,
         },

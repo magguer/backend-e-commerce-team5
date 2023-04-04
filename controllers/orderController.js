@@ -24,7 +24,7 @@ async function show(req, res) {
 }
 
 // Show the form for creating a new resource
-async function create(req, res) {}
+async function create(req, res) { }
 
 // Store a newly created resource in storage.
 async function store(req, res) {
@@ -35,7 +35,6 @@ async function store(req, res) {
     status: status,
     user: user,
     products: bodyData.products,
-    details: bodyData.details,
     totalPrice: bodyData.totalPrice,
   });
   user.orders.push(order._id);
@@ -44,26 +43,24 @@ async function store(req, res) {
 }
 
 // Show the form for editing the specified resource.
-async function edit(req, res) {}
+async function edit(req, res) { }
 
 // Update the specified resource in storage.
 async function update(req, res) {
-  if (req.body.newStatus === "send") {
-    const order = await Order.findById(req.params.id);
-    for (let product of order.products) {
-      const productToUpdate = await Product.findByIdAndUpdate(product, {
-        stock: productToUpdate.stock - 1,
-      });
-    }
-
-    res.sendStatus(200);
-  } else {
-    res.sendStatus(400);
+  const newStatus = await Status.findById(req.body.idStatus)
+  await Order.findByIdAndUpdate(req.params.id, { status: newStatus })
+  const order = await Order.findById(req.params.id)
+  for (let detail of order.products) {
+    const product = await Product.findById(detail.product._id)
+    product.stock = product.stock - detail.quantity
+    product.save()
   }
+  return res.sendStatus(200);
 }
 
+
 // Remove the specified resource from storage.
-async function destroy(req, res) {}
+async function destroy(req, res) { }
 
 module.exports = {
   index,

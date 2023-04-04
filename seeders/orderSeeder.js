@@ -10,19 +10,16 @@ module.exports = async () => {
 
   for (let user of users) {
     const random = Math.floor(Math.random() * 20)
+
+    const productsArr = [
+      { product: products[random], quantity: 2, fixedPrice: products[random].price },
+      { product: products[random + 1], quantity: 1, fixedPrice: products[random + 1].price }
+    ]
+
     const order = new Order({
       status: status._id,
       user: user,
-      products: [products[random], products[random + 1]],
-      details: [{
-        brand: products[random].brand,
-        model: products[random].model,
-        price: products[random].price,
-      }, {
-        brand: products[random + 1].brand,
-        model: products[random + 1].model,
-        price: products[random + 1].price,
-      }],
+      products: productsArr,
       totalPrice: products[random].price + products[random + 1].price
     });
 
@@ -33,10 +30,7 @@ module.exports = async () => {
     await user.save()
     await products[random].save()
   }
-
   await status.save()
-
-
   await Order.insertMany(orders);
 
   console.log("[Database] Se corrió el seeder de Orders.");

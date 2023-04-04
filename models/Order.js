@@ -20,7 +20,6 @@ const orderSchema = new Schema(
       ref: "User",
     },
     products: [],
-    details: [{}],
     totalPrice: {
       type: Number,
       require: true

@@ -96,7 +96,7 @@ async function show(req, res) {
 
 async function create(req, res) {
   const bodyData = req.body;
-  console.log(bodyData);
+
   const newUser = await User.create({
     firstname: bodyData.firstname,
     lastname: bodyData.lastname,
@@ -134,20 +134,22 @@ async function edit(req, res) {
     {
       firstname: bodyData.firstname,
       lastname: bodyData.lastname,
-      password: await bcrypt.hash(`${bodyData.password}`, 8),
+      // password: await bcrypt.hash(`${bodyData.password}`, 8),
       email: bodyData.email,
       addresses: bodyData.addresses,
     },
     { returnOriginal: false }
   );
-  res.json(user);
+  const users = await User.find();
+  res.json(users);
 }
 
 // Remove the specified resource from storage.
 async function destroy(req, res) {
   const userId = req.params.id;
   const user = await User.findByIdAndDelete(userId);
-  res.json({ message: "The User was deleted", userDeleted: user });
+  const users = await User.find();
+  res.json(users);
 }
 
 async function searchUser(req, res) {

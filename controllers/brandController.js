@@ -1,7 +1,7 @@
 const { default: slugify } = require("slugify");
 const { Brand } = require("../models");
 const { Product } = require("../models");
-
+const formidable = require("formidable");
 // Display a listing of users
 async function index(req, res) {
   const brands = await Brand.find();
@@ -43,15 +43,31 @@ async function create(req, res) {
 
 // Show the form for editing the specified resource.
 async function edit(req, res) {
-  const bodyData = req.body;
-  const brand = await Brand.findByIdAndUpdate(
-    { _id: req.params.id },
-    {
-      name: bodyData.name,
-    },
-    { returnOriginal: false }
-  );
-  res.json(brand);
+  const form = formidable({
+    uploadDir: __dirname + "/../public/img",
+    keepExtensions: true,
+    multiples: true,
+  });
+  form.parse(req, async (err, fields, files) => {
+    console.log(fields, files);
+    await Brand.findByIdAndUpdate(
+      { _id: req.params.id },
+
+      {
+        name: fields.name,
+        slug: slugify(fields.name, {
+          replacement: "-",
+          lower: true,
+          locale: "en",
+        }),
+        logo: files.logo.originalFilename,
+        logo2: files.logo.originalFilename,
+      },
+      { returnOriginal: false }
+    );
+  });
+  const brands = await Brand.find();
+  res.json(brands);
 }
 
 // Update the specified resource in storage.

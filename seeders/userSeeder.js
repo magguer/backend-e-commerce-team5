@@ -20,7 +20,7 @@ module.exports = async () => {
         lower: true,
         locale: "en",
       }),
-      addresses: {
+      address: {
         street: "Fake Street 123",
         reference: "orange house with pink car outside",
         city: "Springfield",

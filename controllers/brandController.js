@@ -49,16 +49,19 @@ async function edit(req, res) {
     multiples: true,
   });
   form.parse(req, async (err, fields, files) => {
+    console.log(fields, files);
     await Brand.findByIdAndUpdate(
       { _id: req.params.id },
+
       {
         name: fields.name,
-        // slug: slugify(fields.name, {
-        //   replacement: "-",
-        //   lower: true,
-        //   locale: "en",
-        // }),
-        logo: files.logo,
+        slug: slugify(fields.name, {
+          replacement: "-",
+          lower: true,
+          locale: "en",
+        }),
+        logo: files.logo.originalFilename,
+        logo2: files.logo.originalFilename,
       },
       { returnOriginal: false }
     );

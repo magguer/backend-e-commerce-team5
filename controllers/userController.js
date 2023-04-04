@@ -148,7 +148,8 @@ async function edit(req, res) {
 async function destroy(req, res) {
   const userId = req.params.id;
   const user = await User.findByIdAndDelete(userId);
-  res.json({ message: "The User was deleted", userDeleted: user });
+  const users = await User.find();
+  res.json(users);
 }
 
 async function searchUser(req, res) {

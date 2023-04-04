@@ -1,4 +1,4 @@
-const { Order, Status, User } = require("../models");
+const { Order, Status, User, Product } = require("../models");
 
 // Display a listing of the resource.
 async function index(req, res) {
@@ -24,7 +24,7 @@ async function show(req, res) {
 }
 
 // Show the form for creating a new resource
-async function create(req, res) { }
+async function create(req, res) {}
 
 // Store a newly created resource in storage.
 async function store(req, res) {
@@ -38,19 +38,32 @@ async function store(req, res) {
     details: bodyData.details,
     totalPrice: bodyData.totalPrice,
   });
-  user.orders.push(order._id)
+  user.orders.push(order._id);
   user.save();
   res.json(order);
 }
 
 // Show the form for editing the specified resource.
-async function edit(req, res) { }
+async function edit(req, res) {}
 
 // Update the specified resource in storage.
-async function update(req, res) { }
+async function update(req, res) {
+  if (req.body.newStatus === "send") {
+    const order = await Order.findById(req.params.id);
+    for (let product of order.products) {
+      const productToUpdate = await Product.findByIdAndUpdate(product, {
+        stock: productToUpdate.stock - 1,
+      });
+    }
+
+    res.sendStatus(200);
+  } else {
+    res.sendStatus(400);
+  }
+}
 
 // Remove the specified resource from storage.
-async function destroy(req, res) { }
+async function destroy(req, res) {}
 
 module.exports = {
   index,

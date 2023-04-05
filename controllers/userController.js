@@ -96,6 +96,7 @@ async function show(req, res) {
 
 async function create(req, res) {
   const bodyData = req.body;
+  console.log(bodyData);
 
   const newUser = await User.create({
     firstname: bodyData.firstname,
@@ -111,6 +112,7 @@ async function create(req, res) {
     },
   });
   const token = jwt.sign({ userId: newUser.id }, process.env.SESSION_SECRET);
+
   res.json({
     user: {
       id: newUser._id,

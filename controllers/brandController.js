@@ -28,17 +28,30 @@ async function create(req, res) {
     multiples: true,
   });
   form.parse(req, async (err, fields, files) => {
-    await Admin.create({
-      logo: files.logo,
-      name: fields.name,
-      slug: slugify(fields.name, {
-        replacement: "-",
-        lower: true,
-        locale: "en",
-      }),
-    });
+    console.log(fields, files);
+    if (files.logo) {
+      await Admin.create({
+        logo: files.logo,
+        name: fields.name,
+        slug: slugify(fields.name, {
+          replacement: "-",
+          lower: true,
+          locale: "en",
+        }),
+      });
+    } else {
+      await Admin.create({
+        name: "fields.name",
+        slug: slugify("fields.name", {
+          replacement: "-",
+          lower: true,
+          locale: "en",
+        }),
+      });
+    }
   });
-  res.json("Todo OK.");
+  const brands = await Brand.find();
+  res.json(brands);
 }
 
 // Show the form for editing the specified resource.
@@ -49,7 +62,6 @@ async function edit(req, res) {
     multiples: true,
   });
   form.parse(req, async (err, fields, files) => {
-    console.log(fields, files);
     if (files.logo) {
       await Brand.findByIdAndUpdate(
         { _id: req.params.id },

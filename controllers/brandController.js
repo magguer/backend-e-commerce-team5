@@ -50,21 +50,37 @@ async function edit(req, res) {
   });
   form.parse(req, async (err, fields, files) => {
     console.log(fields, files);
-    await Brand.findByIdAndUpdate(
-      { _id: req.params.id },
+    if (files.logo) {
+      await Brand.findByIdAndUpdate(
+        { _id: req.params.id },
 
-      {
-        name: fields.name,
-        slug: slugify(fields.name, {
-          replacement: "-",
-          lower: true,
-          locale: "en",
-        }),
-        logo: files.logo.originalFilename,
-        logo2: files.logo.originalFilename,
-      },
-      { returnOriginal: false }
-    );
+        {
+          name: fields.name,
+          slug: slugify(fields.name, {
+            replacement: "-",
+            lower: true,
+            locale: "en",
+          }),
+          logo: files.logo.originalFilename,
+          logo2: files.logo.originalFilename,
+        },
+        { returnOriginal: false }
+      );
+    } else {
+      await Brand.findByIdAndUpdate(
+        { _id: req.params.id },
+
+        {
+          name: fields.name,
+          slug: slugify(fields.name, {
+            replacement: "-",
+            lower: true,
+            locale: "en",
+          }),
+        },
+        { returnOriginal: false }
+      );
+    }
   });
   const brands = await Brand.find();
   res.json(brands);
@@ -77,10 +93,9 @@ async function update(req, res) {}
 async function destroy(req, res) {
   const brandId = req.params.id;
   const deletedBrand = await Brand.findById(brandId);
-  await Brand.findOneAndDelete({ id: brandId });
-  res.json({
-    message: `The Admin ${deletedBrand.name} was deleted`,
-  });
+  await Brand.findOneAndDelete({ _id: brandId });
+  const brands = await Brand.find();
+  res.json(brands);
 }
 
 async function searchBrand(req, res) {

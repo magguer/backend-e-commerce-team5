@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { expressjwt: checkJwt } = require("express-jwt");
+/* const AdminAuthenticate = require('../middlewares/adminAuthenticate'); */
 const orderController = require("../controllers/orderController");
 
 router.use(

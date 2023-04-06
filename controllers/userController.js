@@ -97,13 +97,12 @@ async function show(req, res) {
 async function create(req, res) {
   const bodyData = req.body;
   console.log(bodyData);
-
   const newUser = await User.create({
     firstname: bodyData.firstname,
     lastname: bodyData.lastname,
     email: bodyData.email,
     password: await bcrypt.hash(`${bodyData.password}`, 8),
-    addresses: {
+    address: {
       country: bodyData.country,
       state: bodyData.state,
       city: bodyData.city,
@@ -112,7 +111,7 @@ async function create(req, res) {
     },
   });
   const token = jwt.sign({ userId: newUser.id }, process.env.SESSION_SECRET);
-
+  const users = await User.find();
   res.json({
     user: {
       id: newUser._id,
@@ -120,10 +119,11 @@ async function create(req, res) {
       lastname: newUser.lastname,
       email: newUser.email,
       password: bodyData.password,
-      addresses: newUser.addresses,
+      addresses: newUser.address,
       orders: newUser.orders,
       token: token,
     },
+    users,
   });
 }
 

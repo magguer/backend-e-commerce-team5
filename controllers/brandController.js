@@ -30,7 +30,7 @@ async function create(req, res) {
   form.parse(req, async (err, fields, files) => {
     console.log(fields, files);
     if (files.logo) {
-      await Admin.create({
+      await Brand.create({
         logo: files.logo,
         name: fields.name,
         slug: slugify(fields.name, {
@@ -40,7 +40,7 @@ async function create(req, res) {
         }),
       });
     } else {
-      await Admin.create({
+      await Brand.create({
         name: "fields.name",
         slug: slugify("fields.name", {
           replacement: "-",
@@ -111,13 +111,17 @@ async function destroy(req, res) {
 }
 
 async function searchBrand(req, res) {
-  const brandName = slugify(req.body.searchBrand).toLowerCase();
-  const brands = await Brand.find();
-  const searchBrands = brands.filter(
-    (brand) => slugify(brand.slug).toLowerCase().includes(brandName) === true
-  );
-
-  res.json(searchBrands);
+  if (req.body.searchBrand) {
+    const brandName = slugify(req.body.searchBrand).toLowerCase();
+    const brands = await Brand.find();
+    const searchBrands = brands.filter(
+      (brand) => slugify(brand.slug).toLowerCase().includes(brandName) === true
+    );
+    res.json(searchBrands);
+  } else {
+    const searchBrands = await Brand.find();
+    res.json(searchBrands);
+  }
 }
 
 module.exports = {

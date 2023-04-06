@@ -49,13 +49,13 @@ async function edit(req, res) { }
 async function update(req, res) {
   const newStatus = await Status.findById(req.body.idStatus)
   await Order.findByIdAndUpdate(req.params.id, { status: newStatus })
-  const order = await Order.findById(req.params.id)
+  const order = await Order.findById(req.params.id).populate("status").populate("user")
   for (let detail of order.products) {
     const product = await Product.findById(detail.product._id)
     product.stock = product.stock - detail.quantity
     product.save()
   }
-  return res.sendStatus(200);
+  return res.json(order);
 }
 
 

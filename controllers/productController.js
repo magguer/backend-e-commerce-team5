@@ -79,9 +79,10 @@ async function edit(req, res) {
           description: fields.description,
         },
         { returnOriginal: false }
-      );
+      ).populate("brand");
       brand.products.push(product);
       await brand.save();
+      return res.json(product);
     } else {
       const product = await Product.findByIdAndUpdate(
         fields.product,
@@ -96,11 +97,12 @@ async function edit(req, res) {
           description: fields.description,
         },
         { returnOriginal: false }
-      );
+      ).populate("brand");
       brand.products.push(product);
       await brand.save();
+      return res.json(product);
     }
-    res.json("Todo Ok");
+
   });
 }
 

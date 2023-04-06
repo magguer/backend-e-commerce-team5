@@ -149,7 +149,7 @@ async function edit(req, res) {
     { returnOriginal: false }
   );
 
-  res.json(user);
+  return res.json(user);
 }
 
 // Remove the specified resource from storage.

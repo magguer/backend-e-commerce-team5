@@ -96,7 +96,7 @@ async function show(req, res) {
 
 async function create(req, res) {
   const bodyData = req.body;
-  console.log(bodyData);
+
   const newUser = await User.create({
     firstname: bodyData.firstname,
     lastname: bodyData.lastname,
@@ -111,7 +111,7 @@ async function create(req, res) {
     },
   });
   const token = jwt.sign({ userId: newUser.id }, process.env.SESSION_SECRET);
-  const users = await User.find();
+
   res.json({
     user: {
       id: newUser._id,
@@ -122,8 +122,8 @@ async function create(req, res) {
       address: newUser.address,
       orders: newUser.orders,
       token: token,
+      createdAt: newUser.createdAt,
     },
-    users,
   });
 }
 
@@ -148,7 +148,7 @@ async function edit(req, res) {
     },
     { returnOriginal: false }
   );
-  // const users = await User.find();
+
   res.json(user);
 }
 
@@ -156,8 +156,8 @@ async function edit(req, res) {
 async function destroy(req, res) {
   const userId = req.params.id;
   const user = await User.findByIdAndDelete(userId);
-  const users = await User.find();
-  res.json(users);
+
+  res.json(user);
 }
 
 async function searchUser(req, res) {

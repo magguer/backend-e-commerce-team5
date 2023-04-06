@@ -4,7 +4,9 @@ const { model } = require("mongoose");
 
 // Display a listing of the resource.
 async function index(req, res) {
-  const products = await Product.find({ highlight: true }).populate("brand").populate("category")
+  const products = await Product.find({ highlight: true })
+    .populate("brand")
+    .populate("category");
   res.json(products);
 }
 
@@ -102,7 +104,6 @@ async function edit(req, res) {
       await brand.save();
       return res.json(product);
     }
-
   });
 }
 
@@ -123,7 +124,7 @@ async function updateStock(req, res) {
 // Remove the specified resource from storage.
 async function destroy(req, res) {
   const productId = req.params.id;
-  const product = await Product.findOneAndDelete({ id: productId });
+  const product = await Product.findByIdAndDelete(productId);
   res.json({ message: "The Product was deleted", productDeleted: product });
 }
 

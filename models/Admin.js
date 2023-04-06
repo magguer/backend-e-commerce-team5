@@ -29,6 +29,10 @@ const adminSchema = new Schema(
       type: String,
       required: [true, "Inserte un rol."],
     },
+    nivel: {
+      type: Number,
+      required: [true, "Inserte un nivel."],
+    }
   },
   { timestamps: true }
 );

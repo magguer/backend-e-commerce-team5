@@ -63,7 +63,7 @@ async function edit(req, res) {
   });
   form.parse(req, async (err, fields, files) => {
     if (files.logo) {
-      await Brand.findByIdAndUpdate(
+      const brand = await Brand.findByIdAndUpdate(
         { _id: req.params.id },
 
         {
@@ -78,8 +78,9 @@ async function edit(req, res) {
         },
         { returnOriginal: false }
       );
+      return res.json(brand);
     } else {
-      await Brand.findByIdAndUpdate(
+      const brand = await Brand.findByIdAndUpdate(
         { _id: req.params.id },
 
         {
@@ -92,14 +93,15 @@ async function edit(req, res) {
         },
         { returnOriginal: false }
       );
+      return res.json(brand);
     }
   });
   const brands = await Brand.find();
-  res.json(brands);
+
 }
 
 // Update the specified resource in storage.
-async function update(req, res) {}
+async function update(req, res) { }
 
 // Remove the specified resource from storage.
 async function destroy(req, res) {

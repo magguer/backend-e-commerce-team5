@@ -2,7 +2,7 @@ const { Order, Status, User, Product } = require("../models");
 
 // Display a listing of the resource.
 async function index(req, res) {
-  const orders = await Order.find().populate("user");
+  const orders = await Order.find().populate("user").populate("status");
   res.json(orders);
 }
 

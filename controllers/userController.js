@@ -119,7 +119,7 @@ async function create(req, res) {
       lastname: newUser.lastname,
       email: newUser.email,
       password: bodyData.password,
-      addresses: newUser.address,
+      address: newUser.address,
       orders: newUser.orders,
       token: token,
     },
@@ -138,12 +138,18 @@ async function edit(req, res) {
       lastname: bodyData.lastname,
       // password: await bcrypt.hash(`${bodyData.password}`, 8),
       email: bodyData.email,
-      addresses: bodyData.addresses,
+      address: {
+        country: bodyData.country,
+        state: bodyData.state,
+        city: bodyData.city,
+        street: bodyData.street,
+        reference: bodyData.reference,
+      },
     },
     { returnOriginal: false }
   );
-  const users = await User.find();
-  res.json(users);
+  // const users = await User.find();
+  res.json(user);
 }
 
 // Remove the specified resource from storage.

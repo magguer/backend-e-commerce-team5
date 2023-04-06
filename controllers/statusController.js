@@ -2,7 +2,8 @@ const { Status } = require("../models");
 
 // Display a listing of the resource.
 async function index(req, res) {
-    const status = await Status.find()
+    const statusId = req.body.id;
+    const status = await Status.findById(statusId)
     res.json(status)
 }
 

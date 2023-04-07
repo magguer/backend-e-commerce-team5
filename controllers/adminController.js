@@ -18,13 +18,15 @@ async function show(req, res) {
 
 // Post Admin
 async function create(req, res) {
-  const bodyData = req.body
+  const bodyData = req.body;
   const newAdmin = await Admin.create({
+    token: "",
     firstname: bodyData.firstname,
     lastname: bodyData.lastname,
     email: bodyData.email,
     password: await bcrypt.hash(bodyData.password, 8),
     rol: bodyData.rol,
+    nivel: bodyData.nivel,
   });
 
   res.json(newAdmin);
@@ -48,7 +50,7 @@ async function edit(req, res) {
 }
 
 // Update the specified resource in storage.
-async function update(req, res) { }
+async function update(req, res) {}
 
 // Remove the specified resource from storage.
 async function destroy(req, res) {

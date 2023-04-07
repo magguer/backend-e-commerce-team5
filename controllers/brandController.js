@@ -30,8 +30,8 @@ async function create(req, res) {
   form.parse(req, async (err, fields, files) => {
     console.log(fields, files);
     if (files.logo) {
-      await Brand.create({
-        logo: files.logo,
+      const createdBrand = await Brand.create({
+        logo2: files.logo,
         name: fields.name,
         slug: slugify(fields.name, {
           replacement: "-",
@@ -39,8 +39,9 @@ async function create(req, res) {
           locale: "en",
         }),
       });
+      res.json(createdBrand);
     } else {
-      await Brand.create({
+      const createdBrand = await Brand.create({
         name: "fields.name",
         slug: slugify("fields.name", {
           replacement: "-",
@@ -48,10 +49,9 @@ async function create(req, res) {
           locale: "en",
         }),
       });
+      res.json(createdBrand);
     }
   });
-  const brands = await Brand.find();
-  res.json(brands);
 }
 
 // Show the form for editing the specified resource.
@@ -97,19 +97,18 @@ async function edit(req, res) {
     }
   });
   const brands = await Brand.find();
-
 }
 
 // Update the specified resource in storage.
-async function update(req, res) { }
+async function update(req, res) {}
 
 // Remove the specified resource from storage.
 async function destroy(req, res) {
   const brandId = req.params.id;
   const deletedBrand = await Brand.findById(brandId);
   await Brand.findOneAndDelete({ _id: brandId });
-  const brands = await Brand.find();
-  res.json(brands);
+
+  res.json(deletedBrand);
 }
 
 async function searchBrand(req, res) {

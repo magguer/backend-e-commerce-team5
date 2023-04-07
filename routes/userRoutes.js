@@ -6,6 +6,7 @@ const userController = require("../controllers/userController");
 
 router.post("/token", userController.createToken);
 router.post("/", userController.create);
+router.post("/google-login", userController.logInWithGoogle);
 
 router.use(
   checkJwt({

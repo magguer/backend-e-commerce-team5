@@ -98,7 +98,7 @@ async function create(req, res) {
   const bodyData = req.body;
 
   const newUser = await User.create({
-    firstname: bodyData.firstname,
+    firstname: (bodyData.firstname = ""),
     lastname: bodyData.lastname,
     email: bodyData.email,
     password: await bcrypt.hash(`${bodyData.password}`, 8),
@@ -125,6 +125,67 @@ async function create(req, res) {
       createdAt: newUser.createdAt,
     },
   });
+}
+
+async function logInWithGoogle(req, res) {
+  const { name, email, userId, password } = req.body;
+
+  const user = await User.findOne({ email: email });
+  if (user) {
+    try {
+      const user = await User.findOne({ email: email }).populate({
+        path: "orders",
+        populate: "status",
+      });
+
+      const token = jwt.sign({ userId: user._id }, process.env.SESSION_SECRET);
+      return res.json({
+        user: {
+          id: user._id,
+          firstname: user.firstname,
+          lastname: user.lastname,
+          email: user.email,
+          address: user.address,
+          orders: user.orders,
+          token: token,
+        },
+      });
+    } catch (err) {
+      return res.status(500).json({
+        success: false,
+        message: "User login failed",
+        error: err.message,
+      });
+    }
+  } else {
+    const newUser = await User.create({
+      firstname: name,
+      lastname: " ",
+      email: email,
+      password: await bcrypt.hash(`${userId}`, 8),
+      address: {
+        country: " ",
+        state: " ",
+        city: " ",
+        street: " ",
+        reference: " ",
+      },
+    });
+
+    const token = jwt.sign({ userId: newUser.id }, process.env.SESSION_SECRET);
+
+    return res.json({
+      user: {
+        id: newUser._id,
+        firstname: newUser.firstname,
+        lastname: newUser.lastname,
+        email: newUser.email,
+        address: newUser.address,
+        orders: newUser.orders,
+        token: token,
+      },
+    });
+  }
 }
 
 // Show the form for editing the specified resource.
@@ -180,4 +241,5 @@ module.exports = {
   destroy,
   createToken,
   searchUser,
+  logInWithGoogle,
 };

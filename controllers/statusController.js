@@ -2,13 +2,16 @@ const { Status } = require("../models");
 
 // Display a listing of the resource.
 async function index(req, res) {
-    const statusId = req.body.id;
-    const status = await Status.findById(statusId)
-    res.json(status)
+    const status = await Status.find()
+    return res.json(status)
 }
 
 // Display the specified resource.
-async function show(req, res) { }
+async function show(req, res) {
+    const statusId = req.body.id;
+    const status = await Status.findById(statusId)
+    return res.json(status)
+}
 
 // Show the form for creating a new resource
 async function create(req, res) { }

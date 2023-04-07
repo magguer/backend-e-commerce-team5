@@ -3,7 +3,7 @@ const router = express.Router();
 const { expressjwt: checkJwt } = require("express-jwt");
 const statusController = require("../controllers/statusController");
 
-router.get("/:id", statusController.index);
+router.get("/", statusController.index);
 router.get("/crear", statusController.create);
 router.get("/", statusController.store);
 router.get("/:id", statusController.show);

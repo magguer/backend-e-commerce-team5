@@ -3,7 +3,7 @@ const { Order, Status, User, Product } = require("../models");
 // Display a listing of the resource.
 async function index(req, res) {
   const orders = await Order.find().populate("user").populate("status").sort({ $natural: -1 });
-  res.json(orders);
+  return res.json(orders);
 }
 
 async function lastOrders(req, res) {

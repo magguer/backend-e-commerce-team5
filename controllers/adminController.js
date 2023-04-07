@@ -40,9 +40,11 @@ async function edit(req, res) {
     { _id: adminId },
     {
       firstname: bodyData.firstname,
+      lastname: bodyData.last,
       email: bodyData.email,
       password: bodyData.password,
       rol: bodyData.rol,
+      nivel: bodyData.nivel,
     },
     { returnOriginal: false }
   );
@@ -56,10 +58,8 @@ async function update(req, res) {}
 async function destroy(req, res) {
   const adminId = req.params.id;
   const deletedAdmin = await Admin.findById(adminId);
-  const admin = await Admin.findOneAndDelete({ id: adminId });
-  res.json({
-    message: `The Admin ${deletedAdmin.firstname} was deleted`,
-  });
+  await Admin.findOneAndDelete({ _id: adminId });
+  res.json(deletedAdmin);
 }
 
 //// create token

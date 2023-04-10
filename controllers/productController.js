@@ -125,7 +125,7 @@ async function updateStock(req, res) {
 async function destroy(req, res) {
   const productId = req.params.id;
   const product = await Product.findByIdAndDelete(productId);
-  res.json({ message: "The Product was deleted", productDeleted: product });
+  res.json(product);
 }
 
 async function searchProduct(req, res) {

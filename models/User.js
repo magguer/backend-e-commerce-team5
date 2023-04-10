@@ -27,7 +27,6 @@ const userSchema = new Schema(
     },
     phone: {
       type: String,
-      required: [true, "Inserte un teléfono."],
     },
     address: {
       type: Object,

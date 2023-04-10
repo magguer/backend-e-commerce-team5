@@ -6,9 +6,9 @@ faker.locale = "es";
 
 module.exports = async () => {
   const admin = {
-    firstname: "Luxe",
-    lastname: "Admin",
-    email: "luxe@admin.com",
+    firstname: "Admin",
+    lastname: "LuxeHarmony",
+    email: "admin@luxeharmony.com",
     password: await bcrypt.hash("1234", 8),
     rol: "Administrador",
     nivel: 500

@@ -29,9 +29,11 @@ async function createToken(req, res) {
           firstname: user.firstname,
           lastname: user.lastname,
           email: user.email,
+          phone: user.phone,
           address: user.address,
           orders: user.orders,
           token: token,
+
         },
       });
     } else res.json("No existe este usuario");
@@ -118,6 +120,7 @@ async function create(req, res) {
       firstname: newUser.firstname,
       lastname: newUser.lastname,
       email: newUser.email,
+      phone: user.phone,
       password: bodyData.password,
       address: newUser.address,
       orders: newUser.orders,
@@ -145,6 +148,7 @@ async function logInWithGoogle(req, res) {
           firstname: user.firstname,
           lastname: user.lastname,
           email: user.email,
+          phone: user.phone,
           address: user.address,
           orders: user.orders,
           token: token,
@@ -180,6 +184,7 @@ async function logInWithGoogle(req, res) {
         firstname: newUser.firstname,
         lastname: newUser.lastname,
         email: newUser.email,
+        phone: newUser.phone,
         address: newUser.address,
         orders: newUser.orders,
         token: token,
@@ -199,6 +204,7 @@ async function edit(req, res) {
       lastname: bodyData.lastname,
       // password: await bcrypt.hash(`${bodyData.password}`, 8),
       email: bodyData.email,
+      phone: bodyData.phone,
       address: {
         country: bodyData.country,
         state: bodyData.state,

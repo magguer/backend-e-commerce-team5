@@ -1,5 +1,4 @@
 const { Schema, mongoose } = require("../db");
-const bcrypt = require("bcryptjs");
 
 const userSchema = new Schema(
   {
@@ -26,10 +25,12 @@ const userSchema = new Schema(
       required: [true, "Inserte un email."],
       unique: true,
     },
+    phone: {
+      type: String,
+    },
     address: {
       type: Object,
     },
-
     orders: [
       {
         type: Schema.Types.ObjectId,

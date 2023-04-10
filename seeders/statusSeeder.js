@@ -1,6 +1,6 @@
 const { Status } = require("../models");
 
-let ArrayStatus = ["Processing", "Send", "Delivered"];
+let ArrayStatus = ["Processing", "Sent", "Received"];
 
 const numbers = [1, 2, 3];
 module.exports = async () => {
@@ -17,4 +17,4 @@ module.exports = async () => {
   await Status.insertMany(allStatus);
 
   console.log("[Database] Se corrió el seeder de Status.");
-}
+};

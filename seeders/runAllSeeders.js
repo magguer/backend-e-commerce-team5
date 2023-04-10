@@ -9,8 +9,8 @@ async function runAllSeeders() {
     await mongoose.connection.dropCollection("products");
     await mongoose.connection.dropCollection("status");
     await mongoose.connection.dropCollection("orders");
-    await mongoose.connection.dropCollection("bills"); */
-
+    await mongoose.connection.dropCollection("bills");
+   */
   await mongoose.connection.dropDatabase();
 
   await require("./adminSeeder")();

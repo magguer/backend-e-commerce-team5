@@ -20,6 +20,7 @@ module.exports = async () => {
         lower: true,
         locale: "en",
       }),
+      phone: "092738492",
       address: {
         street: "Fake Street 123",
         reference: "orange house with pink car outside",
@@ -38,6 +39,7 @@ module.exports = async () => {
     lastname: "LuxeHarmony",
     password: await bcrypt.hash("1234", 8),
     email: "user@luxeharmony.com",
+    phone: "092738492",
     address: {
       street: "Fake Street 123",
       reference: "orange house with pink car outside",

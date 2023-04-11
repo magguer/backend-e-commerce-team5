@@ -31,12 +31,26 @@ async function store(req, res) {
   const status = await Status.findOne({ name: "Processing" });
   const user = await User.findById(req.auth.userId);
   const bodyData = req.body;
+  console.log(bodyData);
+  let totalPrice = 0
+  for (let productData of bodyData.products) {
+    const product = await Product.findById(productData.product._id)
+    totalPrice += product.price * productData.quantity
+    if (product.stock >= productData.quantity) {
+      product.stock = product.stock - productData.quantity
+      product.save()
+    } else {
+      res.json("No hay suficientes productos en stock.")
+    }
+  }
   const order = await Order.create({
     status: status,
     user: user,
     products: bodyData.products,
-    totalPrice: bodyData.totalPrice,
+    totalPrice,
   });
+
+
   user.orders.push(order._id);
   user.save();
   res.json(order);
@@ -50,11 +64,6 @@ async function update(req, res) {
   const newStatus = await Status.findById(req.body.idStatus)
   await Order.findByIdAndUpdate(req.params.id, { status: newStatus })
   const order = await Order.findById(req.params.id).populate("status").populate("user")
-  for (let detail of order.products) {
-    const product = await Product.findById(detail.product._id)
-    product.stock = product.stock - detail.quantity
-    product.save()
-  }
   return res.json(order);
 }
 

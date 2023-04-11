@@ -1,5 +1,5 @@
 const { Product, Category, Brand } = require("../models");
-const { createClient } = require("@supabase/supabase-js")
+const { createClient } = require("@supabase/supabase-js");
 const formidable = require("formidable");
 const fs = require("fs");
 const path = require("path");
@@ -34,42 +34,47 @@ async function create(req, res) {
     multiples: true,
   });
   form.parse(req, async (err, fields, files) => {
-    const ext = path.extname(files.image.filepath);
-    const newFileName = `image_${Date.now()}${ext}`;
-    const { data, error } = await supabase.storage
-      .from("images")
-      .upload(newFileName, fs.createReadStream(files.image.filepath), {
-        cacheControl: "3600",
-        upsert: false,
-        contentType: files.image.mimetype,
+    console.log(fields, files);
+    if (files) {
+      const ext = path.extname(files.image.filepath);
+      const newFileName = `image_${Date.now()}${ext}`;
+      const { data, error } = await supabase.storage
+        .from("images")
+        .upload(newFileName, fs.createReadStream(files.image.filepath), {
+          cacheControl: "3600",
+          upsert: false,
+          contentType: files.image.mimetype,
+          duplex: "half",
+        });
+
+      const brand = await Brand.findOne({ name: fields.brand }).populate(
+        "products"
+      );
+      const category = await Category.findOne({
+        name: fields.category,
+      }).populate("products");
+      const product = new Product({
+        brand: brand._id,
+        model: fields.model,
+        slug: slugify(fields.model).toLowerCase(),
+        image: newFileName,
+        highlight: fields.highlight,
+        price: fields.price,
+        stock: fields.stock,
+        subtitle: fields.subtitle,
+        description: fields.description,
+        category: category._id,
       });
-    const brand = await Brand.findOne({ name: fields.brand }).populate(
-      "products"
-    );
-    const category = await Category.findOne({ name: fields.category }).populate(
-      "products"
-    );
-    const product = new Product({
-      brand: brand._id,
-      model: fields.model,
-      slug: slugify(fields.model).toLowerCase(),
-      image: newFileName,
-      highlight: fields.highlight,
-      price: fields.price,
-      stock: fields.stock,
-      subtitle: fields.subtitle,
-      description: fields.description,
-      category: category._id,
-    });
-    await product.save();
-    brand.products.push(product._id);
-    category.products.push(product._id);
-    await brand.save();
-    await category.save();
-    const newProduct = await Product.findById(product.id)
-      .populate("brand")
-      .populate("category");
-    return res.json(newProduct);
+      await product.save();
+      brand.products.push(product._id);
+      category.products.push(product._id);
+      await brand.save();
+      await category.save();
+      const newProduct = await Product.findById(product.id)
+        .populate("brand")
+        .populate("category");
+      return res.json(newProduct);
+    }
   });
 }
 

@@ -5,7 +5,7 @@ const productController = require("../controllers/productController");
 
 router.get("/", productController.index);
 router.get("/:slug", productController.show);
-router.post("/", productController.filterProduct);
+router.post("/filter", productController.filterProduct);
 
 router.post("/search", productController.searchProduct);
 
@@ -19,7 +19,6 @@ router.use(
 
 router.post("/", productController.create);
 router.patch("/:slug", productController.edit);
-router.patch("/:slug/update-stock", productController.updateStock);
 router.delete("/:id", productController.destroy);
 
 module.exports = router;

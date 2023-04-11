@@ -1,5 +1,6 @@
 const { Product, Category, Brand } = require("../models");
 const formidable = require("formidable");
+const slugify = require("slugify");
 const { model } = require("mongoose");
 
 // Display a listing of the resource.
@@ -26,29 +27,41 @@ async function create(req, res) {
     keepExtensions: true,
     multiples: true,
   });
+
   form.parse(req, async (err, fields, files) => {
-    const brand = await Brand.findOne({ name: fields.brand });
-    const category = await Category.findOne({ name: fields.category });
-    const newProduct = await Product.create(
-      {
-        brand: brand._id,
-        model: fields.model,
-        slug: fields.slug,
-        image: [files.image1.newFilename, files.image2.newFilename],
-        highlight: fields.highlight,
-        price: fields.price,
-        stock: fields.stock,
-        subtitle: fields.subtitle,
-        description: fields.description,
-        category: "641e002fad73e0e0a7abdfbb",
-      },
-      { returnOriginal: false }
+    const brand = await Brand.findOne({ name: fields.brand }).populate(
+      "products"
     );
-    brand.products.push(newProduct._id);
-    category.products.push(newProduct._id);
-    brand.save();
-    category.save();
-    res.json(newProduct);
+
+    const category = await Category.findOne({ name: fields.category }).populate(
+      "products"
+    );
+
+    const product = new Product({
+      brand: brand._id,
+      model: fields.model,
+      slug: slugify(fields.model).toLowerCase(),
+      image: "[files.image1.newFilename, files.image2.newFilename]",
+      highlight: fields.highlight,
+      price: fields.price,
+      stock: fields.stock,
+      subtitle: fields.subtitle,
+      description: fields.description,
+      category: category._id,
+    });
+
+    await product.save();
+
+    brand.products.push(product._id);
+    category.products.push(product._id);
+    await brand.save();
+    await category.save();
+
+    const newProduct = await Product.findById(product.id)
+      .populate("brand")
+      .populate("category");
+    console.log(newProduct);
+    return res.json(newProduct);
   });
 }
 

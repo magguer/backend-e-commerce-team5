@@ -19,7 +19,6 @@ router.use(
 
 router.post("/", productController.create);
 router.patch("/:slug", productController.edit);
-router.patch("/:slug/update-stock", productController.updateStock);
 router.delete("/:id", productController.destroy);
 
 module.exports = router;

@@ -1,7 +1,14 @@
 const { Product, Category, Brand } = require("../models");
+const { createClient } = require("@supabase/supabase-js")
 const formidable = require("formidable");
+const fs = require("fs");
+const path = require("path");
 const slugify = require("slugify");
-const { model } = require("mongoose");
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY
+);
 
 // Display a listing of the resource.
 async function index(req, res) {
@@ -23,25 +30,30 @@ async function show(req, res) {
 // Show the form for creating a new resource
 async function create(req, res) {
   const form = formidable({
-    uploadDir: __dirname + "/../public/img",
     keepExtensions: true,
     multiples: true,
   });
-
   form.parse(req, async (err, fields, files) => {
+    const ext = path.extname(files.image.filepath);
+    const newFileName = `image_${Date.now()}${ext}`;
+    const { data, error } = await supabase.storage
+      .from("images")
+      .upload(newFileName, fs.createReadStream(files.image.filepath), {
+        cacheControl: "3600",
+        upsert: false,
+        contentType: files.image.mimetype,
+      });
     const brand = await Brand.findOne({ name: fields.brand }).populate(
       "products"
     );
-
     const category = await Category.findOne({ name: fields.category }).populate(
       "products"
     );
-
     const product = new Product({
       brand: brand._id,
       model: fields.model,
       slug: slugify(fields.model).toLowerCase(),
-      image: "[files.image1.newFilename, files.image2.newFilename]",
+      image: newFileName,
       highlight: fields.highlight,
       price: fields.price,
       stock: fields.stock,
@@ -49,18 +61,14 @@ async function create(req, res) {
       description: fields.description,
       category: category._id,
     });
-
     await product.save();
-
     brand.products.push(product._id);
     category.products.push(product._id);
     await brand.save();
     await category.save();
-
     const newProduct = await Product.findById(product.id)
       .populate("brand")
       .populate("category");
-    console.log(newProduct);
     return res.json(newProduct);
   });
 }
@@ -68,11 +76,19 @@ async function create(req, res) {
 // Patch Product
 async function edit(req, res) {
   const form = formidable({
-    uploadDir: __dirname + "/../public/img",
     keepExtensions: true,
     multiples: true,
   });
   form.parse(req, async (err, fields, files) => {
+    const ext = path.extname(files.image.filepath);
+    const newFileName = `image_${Date.now()}${ext}`;
+    const { data, error } = await supabase.storage
+      .from("images")
+      .upload(newFileName, fs.createReadStream(files.image.filepath), {
+        cacheControl: "3600",
+        upsert: false,
+        contentType: files.image.mimetype,
+      });
     const brand = await Brand.findOne({ name: fields.brand });
     const product = await Product.findById(fields.product);
     await Brand.findOneAndUpdate(
@@ -86,7 +102,7 @@ async function edit(req, res) {
           brand: brand._id,
           model: fields.model,
           slug: fields.slug,
-          image: files.image,
+          image: newFileName,
           highlight: fields.highlight,
           price: fields.price,
           stock: fields.stock,
@@ -120,20 +136,6 @@ async function edit(req, res) {
   });
 }
 
-async function updateStock(req, res) {
-  const productSlug = req.params.slug;
-  const product = await Product.findOne({ slug: productSlug });
-  const newStock = product.stock - req.body.stock;
-  const newProduct = await Product.findOneAndUpdate(
-    { where: { slug: productSlug } },
-    {
-      stock: newStock,
-    },
-    { returnOriginal: false }
-  );
-  res.json(newProduct);
-}
-
 // Remove the specified resource from storage.
 async function destroy(req, res) {
   const productId = req.params.id;
@@ -151,7 +153,6 @@ async function searchProduct(req, res) {
   const searchProducts = products.filter(
     (product) => product.slug.includes(slugProduct) === true
   );
-
   res.json(searchProducts);
 }
 
@@ -163,14 +164,12 @@ async function filterProduct(req, res) {
     );
     return res.json(productsByBrand);
   }
-
   if (req.body.category) {
     const productsByCategory = products.filter(
       (product) => product.category.name === req.body.category
     );
     return res.json(productsByCategory);
   }
-
   res.json(products);
 }
 
@@ -178,7 +177,6 @@ module.exports = {
   index,
   show,
   create,
-  updateStock,
   edit,
   destroy,
   searchProduct,

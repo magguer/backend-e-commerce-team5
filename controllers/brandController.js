@@ -74,12 +74,24 @@ async function create(req, res) {
 // Show the form for editing the specified resource.
 async function edit(req, res) {
   const form = formidable({
-    uploadDir: __dirname + "/../public/img",
+    // uploadDir: __dirname + "/../public/img",
     keepExtensions: true,
     multiples: true,
   });
   form.parse(req, async (err, fields, files) => {
     if (files.logo) {
+      ///////Supabase////////
+      const ext = path.extname(files.logo.filepath);
+      const newFileName = `image_${Date.now()}${ext}`;
+      const { data, error } = await supabase.storage
+        .from("images")
+        .upload(newFileName, fs.createReadStream(files.logo.filepath), {
+          cacheControl: "3600",
+          upsert: false,
+          contentType: files.logo.mimetype,
+          duplex: "half",
+        });
+      //////////Supabase///////
       const brand = await Brand.findByIdAndUpdate(
         { _id: req.params.id },
 
@@ -90,8 +102,8 @@ async function edit(req, res) {
             lower: true,
             locale: "en",
           }),
-          logo: files.logo.originalFilename,
-          logo2: files.logo.originalFilename,
+          // logo: files.logo.originalFilename,
+          logo2: newFileName,
         },
         { returnOriginal: false }
       );

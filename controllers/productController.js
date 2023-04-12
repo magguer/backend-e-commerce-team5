@@ -34,7 +34,6 @@ async function create(req, res) {
     multiples: true,
   });
   form.parse(req, async (err, fields, files) => {
-    console.log(fields, files);
     if (files) {
       const ext = path.extname(files.image.filepath);
       const newFileName = `image_${Date.now()}${ext}`;

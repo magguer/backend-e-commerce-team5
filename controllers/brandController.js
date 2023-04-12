@@ -2,6 +2,14 @@ const { default: slugify } = require("slugify");
 const { Brand } = require("../models");
 const { Product } = require("../models");
 const formidable = require("formidable");
+const fs = require("fs");
+const { createClient } = require("@supabase/supabase-js");
+const path = require("path");
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY
+);
 // Display a listing of users
 async function index(req, res) {
   const brands = await Brand.find();
@@ -23,15 +31,24 @@ async function show(req, res) {
 // Post Brand
 async function create(req, res) {
   const form = formidable({
-    uploadDir: __dirname + "/../public/img",
     keepExtensions: true,
     multiples: true,
   });
   form.parse(req, async (err, fields, files) => {
-    console.log(fields, files);
     if (files.logo) {
+      const ext = path.extname(files.logo.filepath);
+      const newFileName = `image_${Date.now()}${ext}`;
+      const { data, error } = await supabase.storage
+        .from("images")
+        .upload(newFileName, fs.createReadStream(files.logo.filepath), {
+          cacheControl: "3600",
+          upsert: false,
+          contentType: files.logo.mimetype,
+          duplex: "half",
+        });
+
       const createdBrand = await Brand.create({
-        logo2: files.logo,
+        logo2: newFileName,
         name: fields.name,
         slug: slugify(fields.name, {
           replacement: "-",

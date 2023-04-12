@@ -117,21 +117,34 @@ async function edit(req, res) {
     );
     if (files.images) {
       let arrImages = []
-      for (let image of files.images) {
-        const ext = path.extname(image.filepath);
+      if (typeof files.images === "object") {
+        const ext = path.extname(files.images.filepath);
         const newFileName = `image_${Date.now()}${ext}`;
         const { data, error } = await supabase.storage
           .from("images")
-          .upload(newFileName, fs.createReadStream(image.filepath), {
+          .upload(newFileName, fs.createReadStream(files.images.filepath), {
             cacheControl: "3600",
             upsert: false,
-            contentType: image.mimetype,
+            contentType: files.images.mimetype,
             duplex: "half",
           });
         arrImages.push(newFileName)
+      } else {
+        for (let image of files.images) {
+          const ext = path.extname(image.filepath);
+          const newFileName = `image_${Date.now()}${ext}`;
+          const { data, error } = await supabase.storage
+            .from("images")
+            .upload(newFileName, fs.createReadStream(image.filepath), {
+              cacheControl: "3600",
+              upsert: false,
+              contentType: image.mimetype,
+              duplex: "half",
+            });
+          arrImages.push(newFileName)
+        }
       }
       const filesProduct = await Product.findById(fields.product)
-      /* console.log([...filesProduct.image, ...arrImages]); */
       const product = await Product.findByIdAndUpdate(
         fields.product,
         {

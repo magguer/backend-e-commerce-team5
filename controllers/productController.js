@@ -36,6 +36,16 @@ async function create(req, res) {
   });
 
   form.parse(req, async (err, fields, files) => {
+
+    if (err) {
+      console.log("Error parsing the files");
+      return res.status(400).json({
+        status: "Fail",
+        message: "There was an error parsing the files",
+        error: err,
+      });
+    }
+
     if (files) {
       const ext = path.extname(files.image.filepath);
       const newFileName = `image_${Date.now()}${ext}`;
@@ -91,29 +101,44 @@ async function edit(req, res) {
     multiples: true,
   });
   form.parse(req, async (err, fields, files) => {
-    const ext = path.extname(files.image.filepath);
-    const newFileName = `image_${Date.now()}${ext}`;
-    const { data, error } = await supabase.storage
-      .from("images")
-      .upload(newFileName, fs.createReadStream(files.image.filepath), {
-        cacheControl: "3600",
-        upsert: false,
-        contentType: files.image.mimetype,
+    if (err) {
+      console.log("Error parsing the files");
+      return res.status(400).json({
+        status: "Fail",
+        message: "There was an error parsing the files",
+        error: err,
       });
+    }
     const brand = await Brand.findOne({ name: fields.brand });
     const product = await Product.findById(fields.product);
     await Brand.findOneAndUpdate(
       { name: fields.oldBrand },
       { $pull: { products: product._id } }
     );
-    if (files.image) {
+    if (files.images) {
+      let arrImages = []
+      for (let image of files.images) {
+        const ext = path.extname(image.filepath);
+        const newFileName = `image_${Date.now()}${ext}`;
+        const { data, error } = await supabase.storage
+          .from("images")
+          .upload(newFileName, fs.createReadStream(image.filepath), {
+            cacheControl: "3600",
+            upsert: false,
+            contentType: image.mimetype,
+            duplex: "half",
+          });
+        arrImages.push(newFileName)
+      }
+      const filesProduct = await Product.findById(fields.product)
+      /* console.log([...filesProduct.image, ...arrImages]); */
       const product = await Product.findByIdAndUpdate(
         fields.product,
         {
           brand: brand._id,
           model: fields.model,
           slug: fields.slug,
-          image: newFileName,
+          image: [...filesProduct.image, ...arrImages],
           highlight: fields.highlight,
           price: fields.price,
           stock: fields.stock,
@@ -122,6 +147,7 @@ async function edit(req, res) {
         },
         { returnOriginal: false }
       ).populate("brand");
+
       brand.products.push(product);
       await brand.save();
       return res.json(product);

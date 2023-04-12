@@ -88,24 +88,35 @@ async function create(req, res) {
 // Show the form for editing the specified resource.
 async function edit(req, res) {
   const form = formidable({
-    // uploadDir: __dirname + "/../public/img",
     keepExtensions: true,
     multiples: true,
   });
   form.parse(req, async (err, fields, files) => {
-    if (files.logo2) {
-      ///////Supabase////////
+    if (files.logo1 || files.logo2) {
+      ///////Black-Logo////////
       const ext = path.extname(files.logo2.filepath);
-      const newFileName = `image_${Date.now()}${ext}`;
+      const newFileName1 = `image_${Date.now()}${ext}`;
       const { data, error } = await supabase.storage
         .from("images")
-        .upload(newFileName, fs.createReadStream(files.logo2.filepath), {
+        .upload(newFileName1, fs.createReadStream(files.logo1.filepath), {
           cacheControl: "3600",
           upsert: false,
           contentType: files.logo2.mimetype,
           duplex: "half",
         });
-      //////////Supabase///////
+
+      ///////White-Logo////////
+      const ext2 = path.extname(files.logo2.filepath);
+      const newFileName2 = `image_${Date.now()}${ext2}`;
+      const { data2, error2 } = await supabase.storage
+        .from("images")
+        .upload(newFileName2, fs.createReadStream(files.logo2.filepath), {
+          cacheControl: "3600",
+          upsert: false,
+          contentType: files.logo2.mimetype,
+          duplex: "half",
+        });
+
       const brand = await Brand.findByIdAndUpdate(
         { _id: req.params.id },
 
@@ -116,8 +127,8 @@ async function edit(req, res) {
             lower: true,
             locale: "en",
           }),
-          // logo2: files.logo2.originalFilename,
-          logo2: newFileName,
+          logo: newFileName1,
+          logo2: newFileName2,
         },
         { returnOriginal: false }
       );

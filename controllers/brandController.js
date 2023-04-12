@@ -35,20 +35,34 @@ async function create(req, res) {
     multiples: true,
   });
   form.parse(req, async (err, fields, files) => {
-    if (files.logo) {
-      const ext = path.extname(files.logo.filepath);
-      const newFileName = `image_${Date.now()}${ext}`;
+    console.log(files);
+
+    if (files.logo1 && files.logo2) {
+      const ext = path.extname(files.logo1.filepath);
+      const newFileNameLogo1 = `image_${Date.now()}${ext}`;
       const { data, error } = await supabase.storage
         .from("images")
-        .upload(newFileName, fs.createReadStream(files.logo.filepath), {
+        .upload(newFileNameLogo1, fs.createReadStream(files.logo1.filepath), {
           cacheControl: "3600",
           upsert: false,
-          contentType: files.logo.mimetype,
+          contentType: files.logo2.mimetype,
+          duplex: "half",
+        });
+
+      const ext2 = path.extname(files.logo2.filepath);
+      const newFileNameLogo2 = `image_${Date.now()}${ext2}`;
+      const { data2, error2 } = await supabase.storage
+        .from("images")
+        .upload(newFileNameLogo2, fs.createReadStream(files.logo2.filepath), {
+          cacheControl: "3600",
+          upsert: false,
+          contentType: files.logo2.mimetype,
           duplex: "half",
         });
 
       const createdBrand = await Brand.create({
-        logo2: newFileName,
+        logo: newFileNameLogo1,
+        logo2: newFileNameLogo2,
         name: fields.name,
         slug: slugify(fields.name, {
           replacement: "-",
@@ -79,16 +93,16 @@ async function edit(req, res) {
     multiples: true,
   });
   form.parse(req, async (err, fields, files) => {
-    if (files.logo) {
+    if (files.logo2) {
       ///////Supabase////////
-      const ext = path.extname(files.logo.filepath);
+      const ext = path.extname(files.logo2.filepath);
       const newFileName = `image_${Date.now()}${ext}`;
       const { data, error } = await supabase.storage
         .from("images")
-        .upload(newFileName, fs.createReadStream(files.logo.filepath), {
+        .upload(newFileName, fs.createReadStream(files.logo2.filepath), {
           cacheControl: "3600",
           upsert: false,
-          contentType: files.logo.mimetype,
+          contentType: files.logo2.mimetype,
           duplex: "half",
         });
       //////////Supabase///////
@@ -102,7 +116,7 @@ async function edit(req, res) {
             lower: true,
             locale: "en",
           }),
-          // logo: files.logo.originalFilename,
+          // logo2: files.logo2.originalFilename,
           logo2: newFileName,
         },
         { returnOriginal: false }

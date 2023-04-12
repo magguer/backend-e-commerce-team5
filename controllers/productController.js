@@ -29,10 +29,12 @@ async function show(req, res) {
 
 // Show the form for creating a new resource
 async function create(req, res) {
+
   const form = formidable({
     keepExtensions: true,
     multiples: true,
   });
+
   form.parse(req, async (err, fields, files) => {
     if (files) {
       const ext = path.extname(files.image.filepath);
@@ -49,9 +51,11 @@ async function create(req, res) {
       const brand = await Brand.findOne({ name: fields.brand }).populate(
         "products"
       );
+
       const category = await Category.findOne({
         name: fields.category,
       }).populate("products");
+
       const product = new Product({
         brand: brand._id,
         model: fields.model,
@@ -65,13 +69,16 @@ async function create(req, res) {
         category: category._id,
       });
       await product.save();
+
       brand.products.push(product._id);
       category.products.push(product._id);
       await brand.save();
       await category.save();
+
       const newProduct = await Product.findById(product.id)
         .populate("brand")
         .populate("category");
+
       return res.json(newProduct);
     }
   });

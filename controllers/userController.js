@@ -33,7 +33,6 @@ async function createToken(req, res) {
           address: user.address,
           orders: user.orders,
           token: token,
-
         },
       });
     } else res.json("No existe este usuario");
@@ -100,7 +99,7 @@ async function create(req, res) {
   const bodyData = req.body;
 
   const newUser = await User.create({
-    firstname: (bodyData.firstname = ""),
+    firstname: bodyData.firstname,
     lastname: bodyData.lastname,
     email: bodyData.email,
     password: await bcrypt.hash(`${bodyData.password}`, 8),
@@ -120,7 +119,7 @@ async function create(req, res) {
       firstname: newUser.firstname,
       lastname: newUser.lastname,
       email: newUser.email,
-      phone: user.phone,
+      phone: newUser.phone,
       password: bodyData.password,
       address: newUser.address,
       orders: newUser.orders,

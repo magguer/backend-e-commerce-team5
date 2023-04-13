@@ -92,7 +92,7 @@ async function edit(req, res) {
     multiples: true,
   });
   form.parse(req, async (err, fields, files) => {
-    if (files.logo1 || files.logo2) {
+    if (files.logo1 && files.logo2) {
       ///////Black-Logo////////
       const ext = path.extname(files.logo2.filepath);
       const newFileName1 = `image_${Date.now()}${ext}`;
@@ -128,6 +128,64 @@ async function edit(req, res) {
             locale: "en",
           }),
           logo: newFileName1,
+          logo2: newFileName2,
+        },
+        { returnOriginal: false }
+      );
+      return res.json(brand);
+    }
+    if (files.logo1 && files.logo2 != true) {
+      ///////Black-Logo////////
+      const ext = path.extname(files.logo1.filepath);
+      const newFileName1 = `image_${Date.now()}${ext}`;
+      const { data, error } = await supabase.storage
+        .from("images")
+        .upload(newFileName1, fs.createReadStream(files.logo1.filepath), {
+          cacheControl: "3600",
+          upsert: false,
+          contentType: files.logo1.mimetype,
+          duplex: "half",
+        });
+
+      const brand = await Brand.findByIdAndUpdate(
+        { _id: req.params.id },
+
+        {
+          name: fields.name,
+          slug: slugify(fields.name, {
+            replacement: "-",
+            lower: true,
+            locale: "en",
+          }),
+          logo: newFileName1,
+        },
+        { returnOriginal: false }
+      );
+      return res.json(brand);
+    }
+    if (files.logo1 != true && files.logo2) {
+      ///////White-Logo////////
+      const ext2 = path.extname(files.logo2.filepath);
+      const newFileName2 = `image_${Date.now()}${ext2}`;
+      const { data2, error2 } = await supabase.storage
+        .from("images")
+        .upload(newFileName2, fs.createReadStream(files.logo2.filepath), {
+          cacheControl: "3600",
+          upsert: false,
+          contentType: files.logo2.mimetype,
+          duplex: "half",
+        });
+
+      const brand = await Brand.findByIdAndUpdate(
+        { _id: req.params.id },
+
+        {
+          name: fields.name,
+          slug: slugify(fields.name, {
+            replacement: "-",
+            lower: true,
+            locale: "en",
+          }),
           logo2: newFileName2,
         },
         { returnOriginal: false }

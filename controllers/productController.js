@@ -2,6 +2,7 @@ const { Product, Category, Brand } = require("../models");
 const { createClient } = require("@supabase/supabase-js");
 const formidable = require("formidable");
 const fs = require("fs");
+const { indexOf } = require("lodash");
 const path = require("path");
 const slugify = require("slugify");
 
@@ -29,14 +30,12 @@ async function show(req, res) {
 
 // Show the form for creating a new resource
 async function create(req, res) {
-
   const form = formidable({
     keepExtensions: true,
     multiples: true,
   });
 
   form.parse(req, async (err, fields, files) => {
-
     if (err) {
       console.log("Error parsing the files");
       return res.status(400).json({
@@ -116,7 +115,7 @@ async function edit(req, res) {
       { $pull: { products: product._id } }
     );
     if (files.images) {
-      let arrImages = []
+      let arrImages = [];
       if (typeof files.images === "object") {
         const ext = path.extname(files.images.filepath);
         const newFileName = `image_${Date.now()}${ext}`;
@@ -128,7 +127,7 @@ async function edit(req, res) {
             contentType: files.images.mimetype,
             duplex: "half",
           });
-        arrImages.push(newFileName)
+        arrImages.push(newFileName);
       } else {
         for (let image of files.images) {
           const ext = path.extname(image.filepath);
@@ -141,10 +140,10 @@ async function edit(req, res) {
               contentType: image.mimetype,
               duplex: "half",
             });
-          arrImages.push(newFileName)
+          arrImages.push(newFileName);
         }
       }
-      const filesProduct = await Product.findById(fields.product)
+      const filesProduct = await Product.findById(fields.product);
       const product = await Product.findByIdAndUpdate(
         fields.product,
         {
@@ -190,6 +189,19 @@ async function edit(req, res) {
 async function destroy(req, res) {
   const productId = req.params.id;
   const product = await Product.findByIdAndDelete(productId);
+
+  //////////Delete this product in your brand ///////////////
+
+  const brand = await Brand.findOne({ products: productId });
+  const productsByBrand = brand.products;
+  productsByBrand.splice(productsByBrand.indexOf(productId), 1);
+
+  const category = await Category.findOne({ products: productId });
+  const productsByCategory = category.products;
+  productsByCategory.splice(productsByCategory.indexOf(productId), 1);
+
+  await brand.save();
+  await category.save();
   res.json(product);
 }
 

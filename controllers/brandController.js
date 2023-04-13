@@ -160,9 +160,9 @@ async function update(req, res) {}
 async function destroy(req, res) {
   const brandId = req.params.id;
   const deletedBrand = await Brand.findById(brandId);
+  await Product.deleteMany({ brand: brandId });
   await Brand.findOneAndDelete({ _id: brandId });
-
-  res.json(deletedBrand);
+  await res.json(deletedBrand);
 }
 
 async function searchBrand(req, res) {

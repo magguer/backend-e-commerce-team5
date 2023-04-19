@@ -30,6 +30,7 @@ async function show(req, res) {
 
 // Show the form for creating a new resource
 async function create(req, res) {
+
   const form = formidable({
     keepExtensions: true,
     multiples: true,

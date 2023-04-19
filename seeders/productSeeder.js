@@ -14,7 +14,7 @@ module.exports = async () => {
     const productCategory = await Category.findOne({
       name: productDb.category,
     });
-    const productBrand = await Brand.findOne({name:productDb.brand})
+    const productBrand = await Brand.findOne({ name: productDb.brand })
     const images = {
       original: productDb.image,
       thumbnail: productDb.image,
